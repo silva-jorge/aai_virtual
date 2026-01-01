@@ -43,9 +43,12 @@ public class UpdateRiskProfileCommandHandler : IRequestHandler<UpdateRiskProfile
         userProfile.InvestmentGoal = request.InvestmentGoal;
         userProfile.VolatilityTolerance = request.VolatilityTolerance;
         userProfile.TimeHorizonMonths = request.TimeHorizonMonths;
+        userProfile.UpdatedAt = DateTime.UtcNow;
 
         await _userProfileRepository.UpdateAsync(userProfile, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        
+        var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
+        Console.WriteLine($"[UpdateRiskProfile] Changes saved: {changesSaved}");
 
         return _mapper.Map<UserProfileDto>(userProfile);
     }

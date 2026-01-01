@@ -45,9 +45,12 @@ public class UpdateThresholdsCommandHandler : IRequestHandler<UpdateThresholdsCo
         // Update thresholds
         userProfile.RebalanceThresholdPercent = request.RebalanceThresholdPercent;
         userProfile.TargetAllocationJson = request.TargetAllocationJson;
+        userProfile.UpdatedAt = DateTime.UtcNow;
 
         await _userProfileRepository.UpdateAsync(userProfile, cancellationToken);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        
+        var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
+        Console.WriteLine($"[UpdateThresholds] Changes saved: {changesSaved}");
 
         return _mapper.Map<UserProfileDto>(userProfile);
     }
