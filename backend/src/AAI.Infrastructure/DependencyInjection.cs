@@ -1,6 +1,7 @@
 using AAI.Application.Common.Interfaces;
 using AAI.Domain.Interfaces;
 using AAI.Infrastructure.Caching;
+using AAI.Infrastructure.ExternalServices.AI;
 using AAI.Infrastructure.Persistence;
 using AAI.Infrastructure.Persistence.Repositories;
 using AAI.Infrastructure.Security;
@@ -43,6 +44,9 @@ public static class DependencyInjection
         // Security Services
         services.AddScoped<IPasswordHashingService, PasswordHashingService>();
         services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+        // AI Services
+        services.AddScoped<IAIRecommendationService, MockAIRecommendationService>();
 
         // Caching
         services.AddMemoryCache();
