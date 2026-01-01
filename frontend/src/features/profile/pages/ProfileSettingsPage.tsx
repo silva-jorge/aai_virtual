@@ -24,7 +24,7 @@ export const ProfileSettingsPage = () => {
 
   useEffect(() => {
     if (profile) {
-      setRiskProfile(profile.riskProfile);
+      setRiskProfile(profile.riskProfile.toLowerCase());
       setInvestmentGoal(profile.investmentGoal || '');
       setVolatilityTolerance(profile.volatilityTolerance);
       setTimeHorizonMonths(profile.timeHorizonMonths);
