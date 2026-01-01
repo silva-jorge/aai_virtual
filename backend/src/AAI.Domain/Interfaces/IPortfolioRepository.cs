@@ -14,4 +14,9 @@ public interface IPortfolioRepository : IRepository<Entities.Portfolio>
     /// Gets a portfolio with all positions and assets.
     /// </summary>
     Task<Entities.Portfolio?> GetByIdWithPositionsAsync(Guid id, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Gets a portfolio by user ID with all positions and assets.
+    /// </summary>
+    Task<Entities.Portfolio?> GetByUserIdWithPositionsAsync(Guid userId, CancellationToken cancellationToken = default);
 }

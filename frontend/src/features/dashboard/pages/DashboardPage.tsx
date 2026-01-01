@@ -58,6 +58,9 @@ export const DashboardPage = () => {
       </div>
 
       <div className={styles.actions}>
+        <Link to="/portfolio" className={`${styles.button} ${styles.buttonPrimary}`}>
+          📊 Ver Portfólio Completo
+        </Link>
         <Link to="/settings" className={`${styles.button} ${styles.buttonPrimary}`}>
           ⚙️ Configurações de Perfil
         </Link>

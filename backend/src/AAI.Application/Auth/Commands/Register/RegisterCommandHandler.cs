@@ -75,7 +75,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterR
             await _userProfileRepository.AddAsync(userProfile, cancellationToken);
 
             // Create default Portfolio
-            var portfolio = new Portfolio
+            var portfolio = new Domain.Entities.Portfolio
             {
                 Id = Guid.NewGuid(),
                 UserId = userProfile.Id,

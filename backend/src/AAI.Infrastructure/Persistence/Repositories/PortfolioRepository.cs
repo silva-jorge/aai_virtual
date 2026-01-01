@@ -23,4 +23,12 @@ public class PortfolioRepository : Repository<Portfolio>, IPortfolioRepository
                 .ThenInclude(pos => pos.Asset)
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
+
+    public async Task<Portfolio?> GetByUserIdWithPositionsAsync(Guid userId, CancellationToken cancellationToken = default)
+    {
+        return await Context.Portfolios
+            .Include(p => p.Positions)
+                .ThenInclude(pos => pos.Asset)
+            .FirstOrDefaultAsync(p => p.UserId == userId, cancellationToken);
+    }
 }
