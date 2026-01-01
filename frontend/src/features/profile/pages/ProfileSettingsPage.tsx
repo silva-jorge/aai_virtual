@@ -33,6 +33,12 @@ export const ProfileSettingsPage = () => {
   }, [profile]);
 
   const handleSaveRiskProfile = () => {
+    console.log('[ProfileSettingsPage] handleSaveRiskProfile called', {
+      riskProfile,
+      investmentGoal,
+      volatilityTolerance,
+      timeHorizonMonths
+    });
     setSuccessMessage('');
     updateRiskProfile(
       {
@@ -43,14 +49,22 @@ export const ProfileSettingsPage = () => {
       },
       {
         onSuccess: () => {
+          console.log('[ProfileSettingsPage] Risk profile updated successfully');
           setSuccessMessage('Perfil de risco atualizado com sucesso!');
           setTimeout(() => setSuccessMessage(''), 3000);
         },
+        onError: (error: any) => {
+          console.error('[ProfileSettingsPage] Risk profile update error:', error);
+        }
       }
     );
   };
 
   const handleSaveThresholds = () => {
+    console.log('[ProfileSettingsPage] handleSaveThresholds called', {
+      rebalanceThreshold,
+      targetAllocationJson: profile?.targetAllocationJson
+    });
     setSuccessMessage('');
     updateThresholds(
       {
@@ -59,9 +73,13 @@ export const ProfileSettingsPage = () => {
       },
       {
         onSuccess: () => {
+          console.log('[ProfileSettingsPage] Thresholds updated successfully');
           setSuccessMessage('Thresholds atualizados com sucesso!');
           setTimeout(() => setSuccessMessage(''), 3000);
         },
+        onError: (error: any) => {
+          console.error('[ProfileSettingsPage] Thresholds update error:', error);
+        }
       }
     );
   };
