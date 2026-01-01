@@ -6,8 +6,10 @@
   --color-primary-alpha: rgba(37, 99, 235, 0.1);
   --color-secondary: #64748b;
   --color-success: #10b981;
+  --color-success-alpha: rgba(16, 185, 129, 0.1);
   --color-warning: #f59e0b;
   --color-error: #ef4444;
+  --color-error-dark: #dc2626;
   --color-error-alpha: rgba(239, 68, 68, 0.1);
   --color-info: #3b82f6;
   --color-disabled: #9ca3af;
@@ -29,6 +31,8 @@
   --color-bg-secondary: #f9fafb;
   --color-bg-tertiary: #f3f4f6;
   --color-background: #f9fafb;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f9fafb;
   --color-surface: #ffffff;
 
   /* Text */

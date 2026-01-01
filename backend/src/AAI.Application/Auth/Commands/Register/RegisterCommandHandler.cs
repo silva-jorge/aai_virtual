@@ -58,7 +58,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterR
             }
 
             // Create UserProfile
-            var userProfile = new UserProfile
+            var userProfile = new Domain.Entities.UserProfile
             {
                 Id = Guid.NewGuid(),
                 RiskProfile = riskProfile,
