@@ -53,8 +53,7 @@ public class UpdateThresholdsCommandHandler : IRequestHandler<UpdateThresholdsCo
 
         await _userProfileRepository.UpdateAsync(userProfile, cancellationToken);
         
-        var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
-        Console.WriteLine($"[UpdateThresholds] Changes saved: {changesSaved}");
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         // Invalidate cache for GetUserProfileQuery
         InvalidateProfileCache(request.UserId);

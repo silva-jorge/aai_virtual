@@ -51,8 +51,7 @@ public class UpdateRiskProfileCommandHandler : IRequestHandler<UpdateRiskProfile
 
         await _userProfileRepository.UpdateAsync(userProfile, cancellationToken);
         
-        var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
-        Console.WriteLine($"[UpdateRiskProfile] Changes saved: {changesSaved}");
+        await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         // Invalidate cache for GetUserProfileQuery
         InvalidateProfileCache(request.UserId);
