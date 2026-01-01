@@ -1,0 +1,2007 @@
+openapi: 3.1.0
+info:
+  title: AAI Virtual - AI Portfolio Manager API
+  description: |
+    API RESTful para o sistema de gerenciamento de portfólio de investimentos 
+    com inteligência artificial. Permite gerenciar portfólios, posições, 
+    transações, e receber recomendações de rebalanceamento baseadas em IA.
+  version: 1.0.0
+  contact:
+    name: AAI Virtual Team
+  license:
+    name: MIT
+
+servers:
+  - url: http://localhost:5000/api/v1
+    description: Development server
+  - url: https://localhost:5001/api/v1
+    description: Development server (HTTPS)
+
+tags:
+  - name: Auth
+    description: Autenticação e autorização
+  - name: Portfolio
+    description: Operações de portfólio
+  - name: Positions
+    description: Gerenciamento de posições
+  - name: Assets
+    description: Catálogo de ativos
+  - name: Transactions
+    description: Histórico de transações
+  - name: Rebalancing
+    description: Recomendações e simulações de rebalanceamento
+  - name: News
+    description: Feed de notícias financeiras
+  - name: Analytics
+    description: Métricas e análises de performance
+  - name: Profile
+    description: Configurações do usuário
+  - name: Alerts
+    description: Configuração e histórico de alertas
+
+paths:
+  # ==================== AUTH ====================
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Autenticar usuário
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Login bem-sucedido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/refresh:
+    post:
+      tags: [Auth]
+      summary: Renovar token de acesso
+      operationId: refreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: Token renovado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /auth/setup:
+    post:
+      tags: [Auth]
+      summary: Configurar senha inicial
+      operationId: setupPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetupPasswordRequest'
+      responses:
+        '201':
+          description: Senha configurada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '409':
+          description: Senha já configurada
+
+  # ==================== PORTFOLIO ====================
+  /portfolio:
+    get:
+      tags: [Portfolio]
+      summary: Obter resumo do portfólio
+      operationId: getPortfolioSummary
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Resumo do portfólio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PortfolioSummary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /portfolio/allocation:
+    get:
+      tags: [Portfolio]
+      summary: Obter alocação por classe de ativo
+      operationId: getAllocationBreakdown
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Breakdown de alocação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AllocationBreakdown'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /portfolio/performance:
+    get:
+      tags: [Portfolio]
+      summary: Obter métricas de performance
+      operationId: getPerformanceMetrics
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PeriodParam'
+      responses:
+        '200':
+          description: Métricas de performance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ==================== POSITIONS ====================
+  /positions:
+    get:
+      tags: [Positions]
+      summary: Listar todas as posições
+      operationId: getPositions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/AssetClassFilter'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+        - $ref: '#/components/parameters/SortByParam'
+      responses:
+        '200':
+          description: Lista de posições
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Positions]
+      summary: Criar nova posição
+      operationId: createPosition
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePositionRequest'
+      responses:
+        '201':
+          description: Posição criada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /positions/{id}:
+    get:
+      tags: [Positions]
+      summary: Obter detalhes de uma posição
+      operationId: getPosition
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Detalhes da posição
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      tags: [Positions]
+      summary: Atualizar posição
+      operationId: updatePosition
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePositionRequest'
+      responses:
+        '200':
+          description: Posição atualizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Position'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      tags: [Positions]
+      summary: Remover posição
+      operationId: deletePosition
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Posição removida
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /positions/import:
+    post:
+      tags: [Positions]
+      summary: Importar posições de arquivo
+      operationId: importPositions
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Arquivo CSV ou Excel
+                format:
+                  type: string
+                  enum: [csv, excel]
+              required:
+                - file
+                - format
+      responses:
+        '200':
+          description: Importação concluída
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImportResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ==================== ASSETS ====================
+  /assets:
+    get:
+      tags: [Assets]
+      summary: Buscar ativos
+      operationId: searchAssets
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: query
+          in: query
+          schema:
+            type: string
+          description: Termo de busca (ticker ou nome)
+        - $ref: '#/components/parameters/AssetClassFilter'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+      responses:
+        '200':
+          description: Lista de ativos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /assets/{ticker}:
+    get:
+      tags: [Assets]
+      summary: Obter detalhes de um ativo
+      operationId: getAsset
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ticker
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Ticker do ativo
+      responses:
+        '200':
+          description: Detalhes do ativo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /assets/{ticker}/history:
+    get:
+      tags: [Assets]
+      summary: Obter histórico de preços
+      operationId: getAssetPriceHistory
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ticker
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PeriodParam'
+      responses:
+        '200':
+          description: Histórico de preços
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceHistoryResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ==================== TRANSACTIONS ====================
+  /transactions:
+    get:
+      tags: [Transactions]
+      summary: Listar transações
+      operationId: getTransactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: positionId
+          in: query
+          schema:
+            type: string
+            format: uuid
+        - name: type
+          in: query
+          schema:
+            $ref: '#/components/schemas/TransactionType'
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+      responses:
+        '200':
+          description: Lista de transações
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Transactions]
+      summary: Registrar transação
+      operationId: createTransaction
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTransactionRequest'
+      responses:
+        '201':
+          description: Transação registrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /transactions/{id}:
+    delete:
+      tags: [Transactions]
+      summary: Remover transação
+      operationId: deleteTransaction
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Transação removida
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ==================== REBALANCING ====================
+  /rebalancing/recommendations:
+    get:
+      tags: [Rebalancing]
+      summary: Obter recomendações de rebalanceamento
+      operationId: getRecommendations
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: status
+          in: query
+          schema:
+            $ref: '#/components/schemas/RecommendationStatus'
+        - name: priority
+          in: query
+          schema:
+            $ref: '#/components/schemas/Priority'
+      responses:
+        '200':
+          description: Lista de recomendações
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Rebalancing]
+      summary: Solicitar novas recomendações (análise por IA)
+      operationId: requestRecommendations
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestRecommendationsRequest'
+      responses:
+        '202':
+          description: Análise iniciada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationRequestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '402':
+          description: Consentimento para envio de dados não fornecido
+
+  /rebalancing/recommendations/{id}:
+    get:
+      tags: [Rebalancing]
+      summary: Obter detalhes de uma recomendação
+      operationId: getRecommendation
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Detalhes da recomendação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /rebalancing/recommendations/{id}/accept:
+    post:
+      tags: [Rebalancing]
+      summary: Aceitar recomendação
+      operationId: acceptRecommendation
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptRecommendationRequest'
+      responses:
+        '200':
+          description: Recomendação aceita
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /rebalancing/recommendations/{id}/reject:
+    post:
+      tags: [Rebalancing]
+      summary: Rejeitar recomendação
+      operationId: rejectRecommendation
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RejectRecommendationRequest'
+      responses:
+        '200':
+          description: Recomendação rejeitada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recommendation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /rebalancing/simulate:
+    post:
+      tags: [Rebalancing]
+      summary: Simular cenário de rebalanceamento
+      operationId: simulateRebalancing
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SimulationRequest'
+      responses:
+        '200':
+          description: Resultado da simulação
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SimulationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ==================== NEWS ====================
+  /news:
+    get:
+      tags: [News]
+      summary: Obter feed de notícias
+      operationId: getNewsFeed
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: relevanceMin
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            maximum: 100
+          description: Score mínimo de relevância
+        - name: sentiment
+          in: query
+          schema:
+            $ref: '#/components/schemas/Sentiment'
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+      responses:
+        '200':
+          description: Feed de notícias
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /news/{id}:
+    get:
+      tags: [News]
+      summary: Obter detalhes de uma notícia
+      operationId: getNewsItem
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '200':
+          description: Detalhes da notícia
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NewsDetails'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /news/{id}/read:
+    post:
+      tags: [News]
+      summary: Marcar notícia como lida
+      operationId: markNewsAsRead
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Notícia marcada como lida
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  # ==================== ANALYTICS ====================
+  /analytics/historical:
+    get:
+      tags: [Analytics]
+      summary: Obter histórico de performance
+      operationId: getHistoricalPerformance
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PeriodParam'
+        - name: granularity
+          in: query
+          schema:
+            type: string
+            enum: [daily, weekly, monthly]
+            default: daily
+      responses:
+        '200':
+          description: Histórico de performance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HistoricalPerformance'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /analytics/risk:
+    get:
+      tags: [Analytics]
+      summary: Obter métricas de risco
+      operationId: getRiskMetrics
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PeriodParam'
+      responses:
+        '200':
+          description: Métricas de risco
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskMetrics'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /analytics/benchmarks:
+    get:
+      tags: [Analytics]
+      summary: Comparar com benchmarks
+      operationId: getBenchmarkComparison
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PeriodParam'
+        - name: benchmarks
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+          description: Símbolos dos benchmarks (ex. IBOV, CDI)
+      responses:
+        '200':
+          description: Comparação com benchmarks
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BenchmarkComparison'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ==================== PROFILE ====================
+  /profile:
+    get:
+      tags: [Profile]
+      summary: Obter perfil do usuário
+      operationId: getProfile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Perfil do usuário
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    put:
+      tags: [Profile]
+      summary: Atualizar perfil
+      operationId: updateProfile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: Perfil atualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /profile/password:
+    put:
+      tags: [Profile]
+      summary: Alterar senha
+      operationId: changePassword
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+      responses:
+        '204':
+          description: Senha alterada
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /profile/export:
+    get:
+      tags: [Profile]
+      summary: Exportar dados (backup)
+      operationId: exportData
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Arquivo de backup
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /profile/import:
+    post:
+      tags: [Profile]
+      summary: Importar dados (restore)
+      operationId: importData
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                password:
+                  type: string
+                  description: Senha do backup
+              required:
+                - file
+                - password
+      responses:
+        '200':
+          description: Dados restaurados
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /profile/delete:
+    delete:
+      tags: [Profile]
+      summary: Excluir todos os dados
+      operationId: deleteAllData
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteDataRequest'
+      responses:
+        '204':
+          description: Dados excluídos
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  # ==================== ALERTS ====================
+  /alerts:
+    get:
+      tags: [Alerts]
+      summary: Listar configurações de alerta
+      operationId: getAlerts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de alertas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      tags: [Alerts]
+      summary: Criar alerta
+      operationId: createAlert
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAlertRequest'
+      responses:
+        '201':
+          description: Alerta criado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Alert'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /alerts/{id}:
+    delete:
+      tags: [Alerts]
+      summary: Remover alerta
+      operationId: deleteAlert
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/IdParam'
+      responses:
+        '204':
+          description: Alerta removido
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /alerts/history:
+    get:
+      tags: [Alerts]
+      summary: Histórico de alertas disparados
+      operationId: getAlertHistory
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: '#/components/parameters/PageParam'
+        - $ref: '#/components/parameters/PageSizeParam'
+      responses:
+        '200':
+          description: Histórico de alertas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AlertHistoryResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    IdParam:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+    PeriodParam:
+      name: period
+      in: query
+      schema:
+        type: string
+        enum: [1M, 3M, 6M, YTD, 1Y, 3Y, 5Y, ALL]
+        default: 1Y
+
+    PageParam:
+      name: page
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+    PageSizeParam:
+      name: pageSize
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+
+    SortByParam:
+      name: sortBy
+      in: query
+      schema:
+        type: string
+        enum: [ticker, value, allocation, gainLoss]
+        default: allocation
+
+    AssetClassFilter:
+      name: assetClass
+      in: query
+      schema:
+        $ref: '#/components/schemas/AssetClass'
+
+  responses:
+    BadRequest:
+      description: Requisição inválida
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    Unauthorized:
+      description: Não autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    NotFound:
+      description: Recurso não encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    # ==================== ENUMS ====================
+    AssetClass:
+      type: string
+      enum: [acao, etf, fii, renda_fixa, internacional, cripto]
+
+    RiskProfile:
+      type: string
+      enum: [conservador, moderado, agressivo, personalizado]
+
+    TransactionType:
+      type: string
+      enum: [compra, venda, dividendo, jscp, bonificacao, grupamento, desdobramento]
+
+    RecommendationActionType:
+      type: string
+      enum: [comprar, vender, manter, aumentar, reduzir]
+
+    RecommendationStatus:
+      type: string
+      enum: [pendente, aceita, rejeitada, expirada]
+
+    Priority:
+      type: string
+      enum: [alta, media, baixa]
+
+    Sentiment:
+      type: string
+      enum: [positivo, neutro, negativo]
+
+    AlertType:
+      type: string
+      enum: [price_variation, threshold_breach, market_event, news]
+
+    # ==================== AUTH ====================
+    LoginRequest:
+      type: object
+      required: [password]
+      properties:
+        password:
+          type: string
+          format: password
+
+    RefreshTokenRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+
+    SetupPasswordRequest:
+      type: object
+      required: [password, confirmPassword]
+      properties:
+        password:
+          type: string
+          format: password
+          minLength: 8
+        confirmPassword:
+          type: string
+          format: password
+
+    AuthResponse:
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expiresIn:
+          type: integer
+          description: Segundos até expiração
+
+    # ==================== PORTFOLIO ====================
+    PortfolioSummary:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        totalValue:
+          type: number
+          format: double
+        totalInvested:
+          type: number
+          format: double
+        totalGainLoss:
+          type: number
+          format: double
+        totalGainLossPercent:
+          type: number
+          format: double
+        positionCount:
+          type: integer
+        lastUpdated:
+          type: string
+          format: date-time
+        allocation:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationItem'
+
+    AllocationBreakdown:
+      type: object
+      properties:
+        byAssetClass:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationItem'
+        bySector:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationItem'
+        targetVsActual:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationComparison'
+
+    AllocationItem:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: number
+          format: double
+        percentage:
+          type: number
+          format: double
+        color:
+          type: string
+          description: Cor para gráficos (hex)
+
+    AllocationComparison:
+      type: object
+      properties:
+        assetClass:
+          $ref: '#/components/schemas/AssetClass'
+        targetPercent:
+          type: number
+        actualPercent:
+          type: number
+        deviationPercent:
+          type: number
+
+    PerformanceMetrics:
+      type: object
+      properties:
+        period:
+          type: string
+        totalReturn:
+          type: number
+          format: double
+        totalReturnPercent:
+          type: number
+          format: double
+        annualizedReturn:
+          type: number
+          format: double
+        benchmarkComparison:
+          type: object
+          additionalProperties:
+            type: number
+
+    # ==================== POSITIONS ====================
+    Position:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        ticker:
+          type: string
+        name:
+          type: string
+        assetClass:
+          $ref: '#/components/schemas/AssetClass'
+        quantity:
+          type: number
+          format: double
+        averageCost:
+          type: number
+          format: double
+        currentPrice:
+          type: number
+          format: double
+        currentValue:
+          type: number
+          format: double
+        totalInvested:
+          type: number
+          format: double
+        gainLoss:
+          type: number
+          format: double
+        gainLossPercent:
+          type: number
+          format: double
+        allocationPercent:
+          type: number
+          format: double
+        lastPriceUpdate:
+          type: string
+          format: date-time
+
+    PositionDetails:
+      allOf:
+        - $ref: '#/components/schemas/Position'
+        - type: object
+          properties:
+            transactions:
+              type: array
+              items:
+                $ref: '#/components/schemas/Transaction'
+            priceHistory:
+              type: array
+              items:
+                $ref: '#/components/schemas/PricePoint'
+            relatedNews:
+              type: array
+              items:
+                $ref: '#/components/schemas/NewsItem'
+
+    PositionListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Position'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    CreatePositionRequest:
+      type: object
+      required: [ticker, quantity, averageCost, transactionDate]
+      properties:
+        ticker:
+          type: string
+        quantity:
+          type: number
+          format: double
+          minimum: 0
+        averageCost:
+          type: number
+          format: double
+          minimum: 0
+        transactionDate:
+          type: string
+          format: date
+        notes:
+          type: string
+
+    UpdatePositionRequest:
+      type: object
+      properties:
+        quantity:
+          type: number
+          format: double
+          minimum: 0
+        averageCost:
+          type: number
+          format: double
+          minimum: 0
+
+    ImportResult:
+      type: object
+      properties:
+        imported:
+          type: integer
+        skipped:
+          type: integer
+        errors:
+          type: array
+          items:
+            type: string
+
+    # ==================== ASSETS ====================
+    Asset:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        ticker:
+          type: string
+        name:
+          type: string
+        assetClass:
+          $ref: '#/components/schemas/AssetClass'
+        exchange:
+          type: string
+        sector:
+          type: string
+        currentPrice:
+          type: number
+          format: double
+        currency:
+          type: string
+        lastPriceUpdate:
+          type: string
+          format: date-time
+
+    AssetDetails:
+      allOf:
+        - $ref: '#/components/schemas/Asset'
+        - type: object
+          properties:
+            description:
+              type: string
+            fundamentals:
+              type: object
+              additionalProperties: true
+            priceHistory:
+              type: array
+              items:
+                $ref: '#/components/schemas/PricePoint'
+
+    AssetListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Asset'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    PricePoint:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        open:
+          type: number
+          format: double
+        high:
+          type: number
+          format: double
+        low:
+          type: number
+          format: double
+        close:
+          type: number
+          format: double
+        volume:
+          type: integer
+          format: int64
+
+    PriceHistoryResponse:
+      type: object
+      properties:
+        ticker:
+          type: string
+        period:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricePoint'
+
+    # ==================== TRANSACTIONS ====================
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        positionId:
+          type: string
+          format: uuid
+        ticker:
+          type: string
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        quantity:
+          type: number
+          format: double
+        unitPrice:
+          type: number
+          format: double
+        totalValue:
+          type: number
+          format: double
+        fees:
+          type: number
+          format: double
+        transactionDate:
+          type: string
+          format: date
+        broker:
+          type: string
+        notes:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    TransactionListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Transaction'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+
+    CreateTransactionRequest:
+      type: object
+      required: [ticker, type, quantity, unitPrice, transactionDate]
+      properties:
+        ticker:
+          type: string
+        type:
+          $ref: '#/components/schemas/TransactionType'
+        quantity:
+          type: number
+          format: double
+          minimum: 0
+        unitPrice:
+          type: number
+          format: double
+          minimum: 0
+        fees:
+          type: number
+          format: double
+          default: 0
+        transactionDate:
+          type: string
+          format: date
+        broker:
+          type: string
+        notes:
+          type: string
+
+    # ==================== REBALANCING ====================
+    Recommendation:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        ticker:
+          type: string
+        name:
+          type: string
+        actionType:
+          $ref: '#/components/schemas/RecommendationActionType'
+        suggestedQuantity:
+          type: number
+          format: double
+        suggestedValue:
+          type: number
+          format: double
+        currentPrice:
+          type: number
+          format: double
+        priority:
+          $ref: '#/components/schemas/Priority'
+        status:
+          $ref: '#/components/schemas/RecommendationStatus'
+        justificationPreview:
+          type: string
+          maxLength: 200
+        createdAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+
+    RecommendationDetails:
+      allOf:
+        - $ref: '#/components/schemas/Recommendation'
+        - type: object
+          properties:
+            justification:
+              type: string
+            dataSources:
+              type: array
+              items:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  title:
+                    type: string
+                  url:
+                    type: string
+                  relevance:
+                    type: number
+            confidenceScore:
+              type: number
+              format: double
+            impactAnalysis:
+              type: object
+              properties:
+                currentAllocation:
+                  type: number
+                projectedAllocation:
+                  type: number
+                estimatedCost:
+                  type: number
+                estimatedTaxImpact:
+                  type: number
+
+    RecommendationListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Recommendation'
+        total:
+          type: integer
+
+    RequestRecommendationsRequest:
+      type: object
+      required: [consentToDataSharing]
+      properties:
+        consentToDataSharing:
+          type: boolean
+          description: Consentimento para enviar dados do portfólio para análise por IA
+        focusAreas:
+          type: array
+          items:
+            type: string
+          description: Áreas de foco (ex. rebalanceamento, oportunidades)
+
+    RecommendationRequestResponse:
+      type: object
+      properties:
+        requestId:
+          type: string
+          format: uuid
+        estimatedCompletionTime:
+          type: integer
+          description: Tempo estimado em segundos
+        message:
+          type: string
+
+    AcceptRecommendationRequest:
+      type: object
+      properties:
+        notes:
+          type: string
+        actualQuantity:
+          type: number
+          format: double
+          description: Quantidade efetivamente transacionada (se diferente da sugerida)
+
+    RejectRecommendationRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+
+    SimulationRequest:
+      type: object
+      required: [operations]
+      properties:
+        operations:
+          type: array
+          items:
+            type: object
+            required: [ticker, actionType, quantity]
+            properties:
+              ticker:
+                type: string
+              actionType:
+                $ref: '#/components/schemas/RecommendationActionType'
+              quantity:
+                type: number
+                format: double
+              unitPrice:
+                type: number
+                format: double
+
+    SimulationResult:
+      type: object
+      properties:
+        currentAllocation:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationItem'
+        projectedAllocation:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationItem'
+        totalCost:
+          type: number
+          format: double
+        estimatedFees:
+          type: number
+          format: double
+        estimatedTaxImpact:
+          type: number
+          format: double
+        deviationFromTarget:
+          type: array
+          items:
+            $ref: '#/components/schemas/AllocationComparison'
+
+    # ==================== NEWS ====================
+    NewsItem:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        source:
+          type: string
+        publishedAt:
+          type: string
+          format: date-time
+        summary:
+          type: string
+        sentiment:
+          $ref: '#/components/schemas/Sentiment'
+        relevanceScore:
+          type: number
+          format: double
+        relatedTickers:
+          type: array
+          items:
+            type: string
+        isRead:
+          type: boolean
+
+    NewsDetails:
+      allOf:
+        - $ref: '#/components/schemas/NewsItem'
+        - type: object
+          properties:
+            content:
+              type: string
+            sourceUrl:
+              type: string
+              format: uri
+            aiAnalysis:
+              type: string
+
+    NewsListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/NewsItem'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        unreadCount:
+          type: integer
+
+    # ==================== ANALYTICS ====================
+    HistoricalPerformance:
+      type: object
+      properties:
+        period:
+          type: string
+        granularity:
+          type: string
+        dataPoints:
+          type: array
+          items:
+            type: object
+            properties:
+              date:
+                type: string
+                format: date
+              portfolioValue:
+                type: number
+                format: double
+              invested:
+                type: number
+                format: double
+              returns:
+                type: number
+                format: double
+              returnsPercent:
+                type: number
+                format: double
+
+    RiskMetrics:
+      type: object
+      properties:
+        volatility:
+          type: number
+          format: double
+          description: Desvio padrão anualizado
+        sharpeRatio:
+          type: number
+          format: double
+        sortinoRatio:
+          type: number
+          format: double
+        maxDrawdown:
+          type: number
+          format: double
+        maxDrawdownDate:
+          type: string
+          format: date
+        beta:
+          type: number
+          format: double
+        alpha:
+          type: number
+          format: double
+        valueAtRisk:
+          type: number
+          format: double
+          description: VaR 95%
+
+    BenchmarkComparison:
+      type: object
+      properties:
+        period:
+          type: string
+        portfolio:
+          type: object
+          properties:
+            totalReturn:
+              type: number
+              format: double
+            annualizedReturn:
+              type: number
+              format: double
+        benchmarks:
+          type: array
+          items:
+            type: object
+            properties:
+              symbol:
+                type: string
+              name:
+                type: string
+              totalReturn:
+                type: number
+                format: double
+              annualizedReturn:
+                type: number
+                format: double
+              outperformance:
+                type: number
+                format: double
+
+    # ==================== PROFILE ====================
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        investmentGoal:
+          type: string
+        volatilityTolerance:
+          type: number
+          format: double
+        timeHorizonMonths:
+          type: integer
+        rebalanceThresholdPercent:
+          type: number
+          format: double
+        targetAllocation:
+          type: object
+          additionalProperties:
+            type: number
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    UpdateProfileRequest:
+      type: object
+      properties:
+        riskProfile:
+          $ref: '#/components/schemas/RiskProfile'
+        investmentGoal:
+          type: string
+          maxLength: 500
+        volatilityTolerance:
+          type: number
+          format: double
+          minimum: 0
+          maximum: 100
+        timeHorizonMonths:
+          type: integer
+          minimum: 1
+          maximum: 600
+        rebalanceThresholdPercent:
+          type: number
+          format: double
+          minimum: 1
+          maximum: 50
+        targetAllocation:
+          type: object
+          additionalProperties:
+            type: number
+
+    ChangePasswordRequest:
+      type: object
+      required: [currentPassword, newPassword, confirmPassword]
+      properties:
+        currentPassword:
+          type: string
+          format: password
+        newPassword:
+          type: string
+          format: password
+          minLength: 8
+        confirmPassword:
+          type: string
+          format: password
+
+    DeleteDataRequest:
+      type: object
+      required: [password, confirmDeletion]
+      properties:
+        password:
+          type: string
+          format: password
+        confirmDeletion:
+          type: boolean
+
+    # ==================== ALERTS ====================
+    Alert:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        alertType:
+          $ref: '#/components/schemas/AlertType'
+        ticker:
+          type: string
+          nullable: true
+        condition:
+          type: object
+          additionalProperties: true
+        isActive:
+          type: boolean
+        lastTriggered:
+          type: string
+          format: date-time
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+
+    AlertListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Alert'
+
+    CreateAlertRequest:
+      type: object
+      required: [alertType, condition]
+      properties:
+        alertType:
+          $ref: '#/components/schemas/AlertType'
+        ticker:
+          type: string
+          nullable: true
+        condition:
+          type: object
+          additionalProperties: true
+          description: 'Condições específicas por tipo (ex. {"threshold": 5} para price_variation)'
+
+    AlertHistory:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        alertId:
+          type: string
+          format: uuid
+        title:
+          type: string
+        message:
+          type: string
+        triggeredAt:
+          type: string
+          format: date-time
+        isRead:
+          type: boolean
+        relatedEntityType:
+          type: string
+          nullable: true
+        relatedEntityId:
+          type: string
+          format: uuid
+          nullable: true
+
+    AlertHistoryResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/AlertHistory'
+        total:
+          type: integer
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        unreadCount:
+          type: integer
+
+    # ==================== COMMON ====================
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+              message:
+                type: string
+        traceId:
+          type: string
