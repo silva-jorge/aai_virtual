@@ -315,7 +315,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("AssetId");
 
-                            b1.ToTable("Assets");
+                            b1.ToTable("Assets", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("AssetId");
@@ -369,7 +369,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("PositionId");
 
-                            b1.ToTable("Positions");
+                            b1.ToTable("Positions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PositionId");
@@ -395,7 +395,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("PositionId");
 
-                            b1.ToTable("Positions");
+                            b1.ToTable("Positions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PositionId");
@@ -421,7 +421,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("PositionId");
 
-                            b1.ToTable("Positions");
+                            b1.ToTable("Positions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PositionId");
@@ -447,7 +447,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("PositionId");
 
-                            b1.ToTable("Positions");
+                            b1.ToTable("Positions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PositionId");
@@ -465,7 +465,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("PositionId");
 
-                            b1.ToTable("Positions");
+                            b1.ToTable("Positions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("PositionId");
@@ -519,7 +519,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("TransactionId");
 
-                            b1.ToTable("Transactions");
+                            b1.ToTable("Transactions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransactionId");
@@ -545,7 +545,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("TransactionId");
 
-                            b1.ToTable("Transactions");
+                            b1.ToTable("Transactions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransactionId");
@@ -571,7 +571,7 @@ namespace AAI.Infrastructure.Migrations
 
                             b1.HasKey("TransactionId");
 
-                            b1.ToTable("Transactions");
+                            b1.ToTable("Transactions", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TransactionId");

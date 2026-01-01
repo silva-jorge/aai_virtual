@@ -20,6 +20,7 @@ public class AAIDbContext : DbContext
     public DbSet<Asset> Assets => Set<Asset>();
     public DbSet<Position> Positions => Set<Position>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
+    public DbSet<Recommendation> Recommendations => Set<Recommendation>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
