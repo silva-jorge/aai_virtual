@@ -3,6 +3,7 @@ using AAI.Domain.Enums;
 using AAI.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AAI.Application.UserProfile.Commands.UpdateRiskProfile;
 
@@ -11,15 +12,18 @@ public class UpdateRiskProfileCommandHandler : IRequestHandler<UpdateRiskProfile
     private readonly IUserProfileRepository _userProfileRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
     public UpdateRiskProfileCommandHandler(
         IUserProfileRepository userProfileRepository,
         IUnitOfWork unitOfWork,
-        IMapper mapper)
+        IMapper mapper,
+        IMemoryCache cache)
     {
         _userProfileRepository = userProfileRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _cache = cache;
     }
 
     public async Task<UserProfileDto> Handle(UpdateRiskProfileCommand request, CancellationToken cancellationToken)
@@ -50,6 +54,19 @@ public class UpdateRiskProfileCommandHandler : IRequestHandler<UpdateRiskProfile
         var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
         Console.WriteLine($"[UpdateRiskProfile] Changes saved: {changesSaved}");
 
+        // Invalidate cache for GetUserProfileQuery
+        InvalidateProfileCache(request.UserId);
+
         return _mapper.Map<UserProfileDto>(userProfile);
+    }
+
+    private void InvalidateProfileCache(string userId)
+    {
+        // Clear all cache - simple but effective solution
+        // In production, consider using cache tags or more sophisticated invalidation
+        if (_cache is MemoryCache memCache)
+        {
+            memCache.Compact(1.0); // Remove 100% of cache entries
+        }
     }
 }

@@ -2,6 +2,7 @@ using AAI.Application.UserProfile.DTOs;
 using AAI.Domain.Interfaces;
 using AutoMapper;
 using MediatR;
+using Microsoft.Extensions.Caching.Memory;
 using System.Text.Json;
 
 namespace AAI.Application.UserProfile.Commands.UpdateThresholds;
@@ -11,15 +12,18 @@ public class UpdateThresholdsCommandHandler : IRequestHandler<UpdateThresholdsCo
     private readonly IUserProfileRepository _userProfileRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly IMemoryCache _cache;
 
     public UpdateThresholdsCommandHandler(
         IUserProfileRepository userProfileRepository,
         IUnitOfWork unitOfWork,
-        IMapper mapper)
+        IMapper mapper,
+        IMemoryCache cache)
     {
         _userProfileRepository = userProfileRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _cache = cache;
     }
 
     public async Task<UserProfileDto> Handle(UpdateThresholdsCommand request, CancellationToken cancellationToken)
@@ -52,6 +56,19 @@ public class UpdateThresholdsCommandHandler : IRequestHandler<UpdateThresholdsCo
         var changesSaved = await _unitOfWork.SaveChangesAsync(cancellationToken);
         Console.WriteLine($"[UpdateThresholds] Changes saved: {changesSaved}");
 
+        // Invalidate cache for GetUserProfileQuery
+        InvalidateProfileCache(request.UserId);
+
         return _mapper.Map<UserProfileDto>(userProfile);
+    }
+
+    private void InvalidateProfileCache(string userId)
+    {
+        // Clear all cache - simple but effective solution
+        // In production, consider using cache tags or more sophisticated invalidation
+        if (_cache is MemoryCache memCache)
+        {
+            memCache.Compact(1.0); // Remove 100% of cache entries
+        }
     }
 }

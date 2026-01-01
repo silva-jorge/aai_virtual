@@ -10,6 +10,14 @@ public class UserProfileRepository : Repository<UserProfile>, IUserProfileReposi
     {
     }
 
+    // Override GetByIdAsync to force a fresh query from database (no cache)
+    public new async Task<UserProfile?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+    {
+        return await Context.UserProfiles
+            .AsNoTracking() // Disable tracking for read-only queries
+            .FirstOrDefaultAsync(u => u.Id == id, cancellationToken);
+    }
+
     public async Task<UserProfile?> GetByIdWithPortfolioAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await Context.UserProfiles
