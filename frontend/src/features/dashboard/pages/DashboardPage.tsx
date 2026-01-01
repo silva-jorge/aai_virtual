@@ -61,6 +61,9 @@ export const DashboardPage = () => {
         <Link to="/portfolio" className={`${styles.button} ${styles.buttonPrimary}`}>
           📊 Ver Portfólio Completo
         </Link>
+        <Link to="/recommendations" className={`${styles.button} ${styles.buttonPrimary}`}>
+          🤖 Ver Recomendações IA
+        </Link>
         <Link to="/settings" className={`${styles.button} ${styles.buttonPrimary}`}>
           ⚙️ Configurações de Perfil
         </Link>

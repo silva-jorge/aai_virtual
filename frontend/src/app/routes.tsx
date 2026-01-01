@@ -4,6 +4,7 @@ import { RegisterPage } from '../features/auth/pages/RegisterPage';
 import { DashboardPage } from '../features/dashboard/pages/DashboardPage';
 import { ProfileSettingsPage } from '../features/profile/pages/ProfileSettingsPage';
 import { PortfolioDashboardPage } from '../features/portfolio/pages/PortfolioDashboardPage';
+import { RecommendationsPage } from '../features/rebalancing/pages/RecommendationsPage';
 import { authApi } from '../features/auth/api/authApi';
 
 // Simple layout component
@@ -59,6 +60,16 @@ export const router = createBrowserRouter([
       <ProtectedRoute>
         <Layout>
           <PortfolioDashboardPage />
+        </Layout>
+      </ProtectedRoute>
+    )
+  },
+  {
+    path: '/recommendations',
+    element: (
+      <ProtectedRoute>
+        <Layout>
+          <RecommendationsPage />
         </Layout>
       </ProtectedRoute>
     )
