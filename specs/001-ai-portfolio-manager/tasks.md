@@ -26,17 +26,17 @@
 
 **Purpose**: Inicialização do projeto e estrutura básica
 
-- [ ] T001 Create project structure per implementation plan (backend/, frontend/, specs/)
-- [ ] T002 Initialize .NET 8 solution with Clean Architecture projects per quickstart.md in backend/
-- [ ] T003 [P] Configure Directory.Build.props with .NET 8 settings in backend/Directory.Build.props
-- [ ] T004 [P] Initialize Vite + React + TypeScript project per quickstart.md in frontend/
-- [ ] T005 [P] Configure ESLint, Prettier for frontend in frontend/.eslintrc.cjs, frontend/.prettierrc
-- [ ] T006 [P] Configure .editorconfig for repository root in .editorconfig
-- [ ] T007 Install NuGet packages for all backend projects per quickstart.md
-- [ ] T008 Install npm packages for frontend per quickstart.md in frontend/package.json
-- [ ] T009 [P] Create appsettings.json and appsettings.Development.json in backend/src/AAI.WebAPI/
+- [x] T001 Create project structure per implementation plan (backend/, frontend/, specs/)
+- [x] T002 Initialize .NET 8 solution with Clean Architecture projects per quickstart.md in backend/
+- [x] T003 [P] Configure Directory.Build.props with .NET 8 settings in backend/Directory.Build.props
+- [x] T004 [P] Initialize Vite + React + TypeScript project per quickstart.md in frontend/
+- [x] T005 [P] Configure ESLint, Prettier for frontend in frontend/.eslintrc.cjs, frontend/.prettierrc
+- [x] T006 [P] Configure .editorconfig for repository root in .editorconfig
+- [x] T007 Install NuGet packages for all backend projects per quickstart.md
+- [x] T008 Install npm packages for frontend per quickstart.md in frontend/package.json
+- [x] T009 [P] Create appsettings.json and appsettings.Development.json in backend/src/AAI.WebAPI/
 - [ ] T010 [P] Create .env.development for frontend in frontend/.env.development
-- [ ] T011 [P] Create .gitignore for repository root
+- [x] T011 [P] Create .gitignore for repository root
 
 ---
 
@@ -48,66 +48,66 @@
 
 ### Domain Layer (AAI.Domain)
 
-- [ ] T012 Create base Entity class in backend/src/AAI.Domain/Common/BaseEntity.cs
-- [ ] T013 [P] Create Money value object in backend/src/AAI.Domain/ValueObjects/Money.cs
-- [ ] T014 [P] Create Percentage value object in backend/src/AAI.Domain/ValueObjects/Percentage.cs
-- [ ] T015 [P] Create RiskProfile enum in backend/src/AAI.Domain/Enums/RiskProfile.cs
-- [ ] T016 [P] Create AssetClass enum in backend/src/AAI.Domain/Enums/AssetClass.cs
-- [ ] T017 [P] Create TransactionType enum in backend/src/AAI.Domain/Enums/TransactionType.cs
-- [ ] T018 [P] Create RecommendationActionType enum in backend/src/AAI.Domain/Enums/RecommendationActionType.cs
-- [ ] T019 [P] Create RecommendationStatus enum in backend/src/AAI.Domain/Enums/RecommendationStatus.cs
-- [ ] T020 [P] Create Priority enum in backend/src/AAI.Domain/Enums/Priority.cs
-- [ ] T021 [P] Create Sentiment enum in backend/src/AAI.Domain/Enums/Sentiment.cs
-- [ ] T022 [P] Create AlertType enum in backend/src/AAI.Domain/Enums/AlertType.cs
-- [ ] T023 [P] Create IUnitOfWork interface in backend/src/AAI.Domain/Interfaces/IUnitOfWork.cs
-- [ ] T024 [P] Create IRepository base interface in backend/src/AAI.Domain/Interfaces/IRepository.cs
+- [x] T012 Create base Entity class in backend/src/AAI.Domain/Common/BaseEntity.cs
+- [x] T013 [P] Create Money value object in backend/src/AAI.Domain/ValueObjects/Money.cs
+- [x] T014 [P] Create Percentage value object in backend/src/AAI.Domain/ValueObjects/Percentage.cs
+- [x] T015 [P] Create RiskProfile enum in backend/src/AAI.Domain/Enums/RiskProfile.cs
+- [x] T016 [P] Create AssetClass enum in backend/src/AAI.Domain/Enums/AssetClass.cs
+- [x] T017 [P] Create TransactionType enum in backend/src/AAI.Domain/Enums/TransactionType.cs
+- [x] T018 [P] Create RecommendationActionType enum in backend/src/AAI.Domain/Enums/RecommendationActionType.cs
+- [x] T019 [P] Create RecommendationStatus enum in backend/src/AAI.Domain/Enums/RecommendationStatus.cs
+- [x] T020 [P] Create Priority enum in backend/src/AAI.Domain/Enums/Priority.cs
+- [x] T021 [P] Create Sentiment enum in backend/src/AAI.Domain/Enums/Sentiment.cs
+- [x] T022 [P] Create AlertType enum in backend/src/AAI.Domain/Enums/AlertType.cs
+- [x] T023 [P] Create IUnitOfWork interface in backend/src/AAI.Domain/Interfaces/IUnitOfWork.cs
+- [x] T024 [P] Create IRepository base interface in backend/src/AAI.Domain/Interfaces/IRepository.cs
 
 ### Application Layer (AAI.Application)
 
-- [ ] T025 Configure MediatR pipeline behaviors in backend/src/AAI.Application/Common/Behaviors/
-- [ ] T026 [P] Create ValidationBehavior in backend/src/AAI.Application/Common/Behaviors/ValidationBehavior.cs
-- [ ] T027 [P] Create LoggingBehavior in backend/src/AAI.Application/Common/Behaviors/LoggingBehavior.cs
-- [ ] T028 [P] Create CachingBehavior in backend/src/AAI.Application/Common/Behaviors/CachingBehavior.cs
+- [x] T025 Configure MediatR pipeline behaviors in backend/src/AAI.Application/Common/Behaviors/
+- [x] T026 [P] Create ValidationBehavior in backend/src/AAI.Application/Common/Behaviors/ValidationBehavior.cs
+- [x] T027 [P] Create LoggingBehavior in backend/src/AAI.Application/Common/Behaviors/LoggingBehavior.cs
+- [x] T028 [P] Create CachingBehavior in backend/src/AAI.Application/Common/Behaviors/CachingBehavior.cs
 - [ ] T029 Create AutoMapper MappingProfile in backend/src/AAI.Application/Common/Mappings/MappingProfile.cs
-- [ ] T030 [P] Create IMarketDataService interface in backend/src/AAI.Application/Common/Interfaces/IMarketDataService.cs
-- [ ] T031 [P] Create INewsService interface in backend/src/AAI.Application/Common/Interfaces/INewsService.cs
-- [ ] T032 [P] Create IAIRecommendationService interface in backend/src/AAI.Application/Common/Interfaces/IAIRecommendationService.cs
-- [ ] T033 [P] Create INotificationService interface in backend/src/AAI.Application/Common/Interfaces/INotificationService.cs
-- [ ] T034 Create DependencyInjection.cs for Application layer in backend/src/AAI.Application/DependencyInjection.cs
+- [x] T030 [P] Create IMarketDataService interface in backend/src/AAI.Application/Common/Interfaces/IMarketDataService.cs
+- [x] T031 [P] Create INewsService interface in backend/src/AAI.Application/Common/Interfaces/INewsService.cs
+- [x] T032 [P] Create IAIRecommendationService interface in backend/src/AAI.Application/Common/Interfaces/IAIRecommendationService.cs
+- [x] T033 [P] Create INotificationService interface in backend/src/AAI.Application/Common/Interfaces/INotificationService.cs
+- [x] T034 Create DependencyInjection.cs for Application layer in backend/src/AAI.Application/DependencyInjection.cs
 
 ### Infrastructure Layer (AAI.Infrastructure)
 
-- [ ] T035 Create AAIDbContext with EF Core in backend/src/AAI.Infrastructure/Persistence/AAIDbContext.cs
-- [ ] T036 Create UnitOfWork implementation in backend/src/AAI.Infrastructure/Persistence/UnitOfWork.cs
-- [ ] T037 [P] Create InMemoryCacheService in backend/src/AAI.Infrastructure/Caching/InMemoryCacheService.cs
-- [ ] T038 Create DependencyInjection.cs for Infrastructure layer in backend/src/AAI.Infrastructure/DependencyInjection.cs
+- [x] T035 Create AAIDbContext with EF Core in backend/src/AAI.Infrastructure/Persistence/AAIDbContext.cs
+- [x] T036 Create UnitOfWork implementation in backend/src/AAI.Infrastructure/Persistence/UnitOfWork.cs
+- [x] T037 [P] Create InMemoryCacheService in backend/src/AAI.Infrastructure/Caching/InMemoryCacheService.cs
+- [x] T038 Create DependencyInjection.cs for Infrastructure layer in backend/src/AAI.Infrastructure/DependencyInjection.cs
 
 ### WebAPI Layer (AAI.WebAPI)
 
-- [ ] T039 Configure Program.cs with DI, middleware, Serilog in backend/src/AAI.WebAPI/Program.cs
-- [ ] T040 [P] Create ExceptionHandlingMiddleware in backend/src/AAI.WebAPI/Middleware/ExceptionHandlingMiddleware.cs
-- [ ] T041 [P] Create RequestLoggingMiddleware in backend/src/AAI.WebAPI/Middleware/RequestLoggingMiddleware.cs
+- [x] T039 Configure Program.cs with DI, middleware, Serilog in backend/src/AAI.WebAPI/Program.cs
+- [x] T040 [P] Create ExceptionHandlingMiddleware in backend/src/AAI.WebAPI/Middleware/ExceptionHandlingMiddleware.cs
+- [x] T041 [P] Create RequestLoggingMiddleware in backend/src/AAI.WebAPI/Middleware/RequestLoggingMiddleware.cs
 - [ ] T042 [P] Create ValidationFilter in backend/src/AAI.WebAPI/Filters/ValidationFilter.cs
-- [ ] T043 Configure Swagger/OpenAPI in backend/src/AAI.WebAPI/Program.cs
-- [ ] T044 Configure CORS for frontend origin in backend/src/AAI.WebAPI/Program.cs
+- [x] T043 Configure Swagger/OpenAPI in backend/src/AAI.WebAPI/Program.cs
+- [x] T044 Configure CORS for frontend origin in backend/src/AAI.WebAPI/Program.cs
 
 ### Frontend Foundation
 
-- [ ] T045 Create App.tsx with providers setup in frontend/src/app/App.tsx
-- [ ] T046 [P] Create QueryProvider with React Query in frontend/src/app/providers/QueryProvider.tsx
-- [ ] T047 [P] Create NotificationProvider in frontend/src/app/providers/NotificationProvider.tsx
-- [ ] T048 Create routes.tsx with React Router in frontend/src/app/routes.tsx
+- [x] T045 Create App.tsx with providers setup in frontend/src/app/App.tsx
+- [x] T046 [P] Create QueryProvider with React Query in frontend/src/app/providers/QueryProvider.tsx
+- [x] T047 [P] Create NotificationProvider in frontend/src/app/providers/NotificationProvider.tsx
+- [x] T048 Create routes.tsx with React Router in frontend/src/app/routes.tsx
 - [ ] T049 [P] Create apiClient with Axios in frontend/src/services/api/apiClient.ts
 - [ ] T050 [P] Create endpoints constants in frontend/src/services/api/endpoints.ts
-- [ ] T051 Create CSS design tokens in frontend/src/shared/styles/tokens.css
-- [ ] T052 [P] Create global styles in frontend/src/shared/styles/globals.css
+- [x] T051 Create CSS design tokens in frontend/src/shared/styles/tokens.css
+- [x] T052 [P] Create global styles in frontend/src/shared/styles/globals.css
 - [ ] T053 [P] Create CSS variables in frontend/src/shared/styles/variables.css
-- [ ] T054 [P] Create Button component in frontend/src/shared/components/ui/Button.tsx
-- [ ] T055 [P] Create Card component in frontend/src/shared/components/ui/Card.tsx
+- [x] T054 [P] Create Button component in frontend/src/shared/components/ui/Button.tsx
+- [x] T055 [P] Create Card component in frontend/src/shared/components/ui/Card.tsx
 - [ ] T056 [P] Create Modal component in frontend/src/shared/components/ui/Modal.tsx
 - [ ] T057 [P] Create Toast component in frontend/src/shared/components/ui/Toast.tsx
 - [ ] T058 [P] Create Skeleton component in frontend/src/shared/components/ui/Skeleton.tsx
-- [ ] T059 [P] Create Input component in frontend/src/shared/components/ui/Input.tsx
+- [x] T059 [P] Create Input component in frontend/src/shared/components/ui/Input.tsx
 - [ ] T060 [P] Create Select component in frontend/src/shared/components/ui/Select.tsx
 - [ ] T061 Create MainLayout component in frontend/src/shared/components/layout/MainLayout.tsx
 - [ ] T062 [P] Create Header component in frontend/src/shared/components/layout/Header.tsx
@@ -116,7 +116,7 @@
 - [ ] T065 Create formatters utilities in frontend/src/shared/utils/formatters.ts
 - [ ] T066 [P] Create validators utilities in frontend/src/shared/utils/validators.ts
 - [ ] T067 Create common types in frontend/src/shared/types/common.ts
-- [ ] T068 Create main.tsx entry point in frontend/src/main.tsx
+- [x] T068 Create main.tsx entry point in frontend/src/main.tsx
 
 **Checkpoint**: Foundation ready - implementação de user stories pode começar
 
@@ -130,32 +130,32 @@
 
 ### Domain
 
-- [ ] T069 [P] [US8] Create UserProfile entity in backend/src/AAI.Domain/Entities/UserProfile.cs
-- [ ] T070 [P] [US8] Create IUserProfileRepository interface in backend/src/AAI.Domain/Interfaces/IUserProfileRepository.cs
+- [x] T069 [P] [US8] Create UserProfile entity in backend/src/AAI.Domain/Entities/UserProfile.cs
+- [x] T070 [P] [US8] Create IUserProfileRepository interface in backend/src/AAI.Domain/Interfaces/IUserProfileRepository.cs
 
 ### Infrastructure - Persistence
 
-- [ ] T071 [US8] Create UserProfileConfiguration for EF Core in backend/src/AAI.Infrastructure/Persistence/Configurations/UserProfileConfiguration.cs
-- [ ] T072 [US8] Create UserProfileRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/UserProfileRepository.cs
-- [ ] T073 [US8] Create initial migration in backend/src/AAI.Infrastructure/Persistence/Migrations/
+- [x] T071 [US8] Create UserProfileConfiguration for EF Core in backend/src/AAI.Infrastructure/Persistence/Configurations/UserProfileConfiguration.cs
+- [x] T072 [US8] Create UserProfileRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/UserProfileRepository.cs
+- [x] T073 [US8] Create initial migration in backend/src/AAI.Infrastructure/Persistence/Migrations/
 
 ### Application - Auth
 
 - [ ] T074 [US8] Create SetupPasswordCommand in backend/src/AAI.Application/Auth/Commands/SetupPassword/
-- [ ] T075 [US8] Create LoginCommand in backend/src/AAI.Application/Auth/Commands/Login/
+- [x] T075 [US8] Create LoginCommand in backend/src/AAI.Application/Auth/Commands/Login/
 - [ ] T076 [US8] Create RefreshTokenCommand in backend/src/AAI.Application/Auth/Commands/RefreshToken/
 - [ ] T077 [US8] Create ChangePasswordCommand in backend/src/AAI.Application/Auth/Commands/ChangePassword/
 - [ ] T078 [P] [US8] Create AuthDTOs in backend/src/AAI.Application/Auth/DTOs/
 
 ### Infrastructure - Security
 
-- [ ] T079 [US8] Implement JWT token generation service in backend/src/AAI.Infrastructure/Security/JwtTokenService.cs
-- [ ] T080 [US8] Implement password hashing with Argon2id in backend/src/AAI.Infrastructure/Security/PasswordHasher.cs
+- [x] T079 [US8] Implement JWT token generation service in backend/src/AAI.Infrastructure/Security/JwtTokenService.cs
+- [x] T080 [US8] Implement password hashing with Argon2id in backend/src/AAI.Infrastructure/Security/PasswordHasher.cs
 
 ### WebAPI - Auth
 
-- [ ] T081 [US8] Create AuthController with login, refresh, setup endpoints in backend/src/AAI.WebAPI/Controllers/AuthController.cs
-- [ ] T082 [US8] Configure JWT authentication in Program.cs in backend/src/AAI.WebAPI/Program.cs
+- [x] T081 [US8] Create AuthController with login, refresh, setup endpoints in backend/src/AAI.WebAPI/Controllers/AuthController.cs
+- [x] T082 [US8] Configure JWT authentication in Program.cs in backend/src/AAI.WebAPI/Program.cs
 
 ### Application - Profile
 
@@ -169,9 +169,9 @@
 
 ### Frontend - Auth
 
-- [ ] T087 [US8] Create AuthProvider context in frontend/src/app/providers/AuthProvider.tsx
-- [ ] T088 [US8] Create useAuth hook in frontend/src/features/auth/hooks/useAuth.ts
-- [ ] T089 [US8] Create authApi service in frontend/src/features/auth/api/authApi.ts
+- [x] T087 [US8] Create AuthProvider context in frontend/src/app/providers/AuthProvider.tsx
+- [x] T088 [US8] Create useAuth hook in frontend/src/features/auth/hooks/useAuth.ts
+- [x] T089 [US8] Create authApi service in frontend/src/features/auth/api/authApi.ts
 - [ ] T090 [US8] Create LoginForm component in frontend/src/features/auth/components/LoginForm.tsx
 - [ ] T091 [US8] Create PinSetup component in frontend/src/features/auth/components/PinSetup.tsx
 - [ ] T092 [US8] Create encryption utility for local storage in frontend/src/shared/utils/encryption.ts
@@ -189,20 +189,20 @@
 
 ### Application - UserProfile
 
-- [ ] T094 [US2] Create GetUserProfileQuery in backend/src/AAI.Application/UserProfile/Queries/GetUserProfile/
-- [ ] T095 [US2] Create UpdateRiskProfileCommand in backend/src/AAI.Application/UserProfile/Commands/UpdateRiskProfile/
-- [ ] T096 [US2] Create UpdateThresholdsCommand in backend/src/AAI.Application/UserProfile/Commands/UpdateThresholds/
-- [ ] T097 [P] [US2] Create UserProfileDTOs in backend/src/AAI.Application/UserProfile/DTOs/
+- [x] T094 [US2] Create GetUserProfileQuery in backend/src/AAI.Application/UserProfile/Queries/GetUserProfile/
+- [x] T095 [US2] Create UpdateRiskProfileCommand in backend/src/AAI.Application/UserProfile/Commands/UpdateRiskProfile/
+- [x] T096 [US2] Create UpdateThresholdsCommand in backend/src/AAI.Application/UserProfile/Commands/UpdateThresholds/
+- [x] T097 [P] [US2] Create UserProfileDTOs in backend/src/AAI.Application/UserProfile/DTOs/
 
 ### WebAPI - Profile
 
-- [ ] T098 [US2] Add GET /profile and PUT /profile endpoints to ProfileController in backend/src/AAI.WebAPI/Controllers/ProfileController.cs
+- [x] T098 [US2] Add GET /profile and PUT /profile endpoints to ProfileController in backend/src/AAI.WebAPI/Controllers/ProfileController.cs
 
 ### Frontend - Profile
 
-- [ ] T099 [US2] Create profile types in frontend/src/features/profile/types/profile.ts
-- [ ] T100 [US2] Create profileApi service in frontend/src/features/profile/api/profileApi.ts
-- [ ] T101 [US2] Create useProfile hook in frontend/src/features/profile/hooks/useProfile.ts
+- [x] T099 [US2] Create profile types in frontend/src/features/profile/types/profile.ts
+- [x] T100 [US2] Create profileApi service in frontend/src/features/profile/api/profileApi.ts
+- [x] T101 [US2] Create useProfile hook in frontend/src/features/profile/hooks/useProfile.ts
 - [ ] T102 [US2] Create ProfileSettings component in frontend/src/features/profile/components/ProfileSettings.tsx
 - [ ] T103 [P] [US2] Create RiskProfileSelector component in frontend/src/features/profile/components/RiskProfileSelector.tsx
 - [ ] T104 [P] [US2] Create ThresholdConfig component in frontend/src/features/profile/components/ThresholdConfig.tsx
@@ -219,36 +219,36 @@
 
 ### Domain - Portfolio
 
-- [ ] T105 [P] [US1] Create Portfolio entity in backend/src/AAI.Domain/Entities/Portfolio.cs
-- [ ] T106 [P] [US1] Create Position entity in backend/src/AAI.Domain/Entities/Position.cs
-- [ ] T107 [P] [US1] Create Asset entity in backend/src/AAI.Domain/Entities/Asset.cs
-- [ ] T108 [P] [US1] Create Transaction entity in backend/src/AAI.Domain/Entities/Transaction.cs
-- [ ] T109 [P] [US1] Create Benchmark entity in backend/src/AAI.Domain/Entities/Benchmark.cs
-- [ ] T110 [P] [US1] Create BenchmarkValue entity in backend/src/AAI.Domain/Entities/BenchmarkValue.cs
-- [ ] T111 [P] [US1] Create PriceHistory entity in backend/src/AAI.Domain/Entities/PriceHistory.cs
-- [ ] T112 [P] [US1] Create IPortfolioRepository interface in backend/src/AAI.Domain/Interfaces/IPortfolioRepository.cs
-- [ ] T113 [P] [US1] Create IAssetRepository interface in backend/src/AAI.Domain/Interfaces/IAssetRepository.cs
+- [x] T105 [P] [US1] Create Portfolio entity in backend/src/AAI.Domain/Entities/Portfolio.cs
+- [x] T106 [P] [US1] Create Position entity in backend/src/AAI.Domain/Entities/Position.cs
+- [x] T107 [P] [US1] Create Asset entity in backend/src/AAI.Domain/Entities/Asset.cs
+- [x] T108 [P] [US1] Create Transaction entity in backend/src/AAI.Domain/Entities/Transaction.cs
+- [x] T109 [P] [US1] Create Benchmark entity in backend/src/AAI.Domain/Entities/Benchmark.cs
+- [x] T110 [P] [US1] Create BenchmarkValue entity in backend/src/AAI.Domain/Entities/BenchmarkValue.cs
+- [x] T111 [P] [US1] Create PriceHistory entity in backend/src/AAI.Domain/Entities/PriceHistory.cs
+- [x] T112 [P] [US1] Create IPortfolioRepository interface in backend/src/AAI.Domain/Interfaces/IPortfolioRepository.cs
+- [x] T113 [P] [US1] Create IAssetRepository interface in backend/src/AAI.Domain/Interfaces/IAssetRepository.cs
 - [ ] T114 [P] [US1] Create IPositionRepository interface in backend/src/AAI.Domain/Interfaces/IPositionRepository.cs
 
 ### Infrastructure - Persistence
 
-- [ ] T115 [US1] Create PortfolioConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PortfolioConfiguration.cs
-- [ ] T116 [P] [US1] Create PositionConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PositionConfiguration.cs
-- [ ] T117 [P] [US1] Create AssetConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AssetConfiguration.cs
-- [ ] T118 [P] [US1] Create TransactionConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/TransactionConfiguration.cs
-- [ ] T119 [P] [US1] Create BenchmarkConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/BenchmarkConfiguration.cs
-- [ ] T120 [P] [US1] Create PriceHistoryConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PriceHistoryConfiguration.cs
-- [ ] T121 [US1] Create PortfolioRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PortfolioRepository.cs
-- [ ] T122 [P] [US1] Create AssetRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/AssetRepository.cs
+- [x] T115 [US1] Create PortfolioConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PortfolioConfiguration.cs
+- [x] T116 [P] [US1] Create PositionConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PositionConfiguration.cs
+- [x] T117 [P] [US1] Create AssetConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AssetConfiguration.cs
+- [x] T118 [P] [US1] Create TransactionConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/TransactionConfiguration.cs
+- [x] T119 [P] [US1] Create BenchmarkConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/BenchmarkConfiguration.cs
+- [x] T120 [P] [US1] Create PriceHistoryConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PriceHistoryConfiguration.cs
+- [x] T121 [US1] Create PortfolioRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PortfolioRepository.cs
+- [x] T122 [P] [US1] Create AssetRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/AssetRepository.cs
 - [ ] T123 [P] [US1] Create PositionRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PositionRepository.cs
-- [ ] T124 [US1] Add Portfolio migration in backend/src/AAI.Infrastructure/Persistence/Migrations/
+- [x] T124 [US1] Add Portfolio migration in backend/src/AAI.Infrastructure/Persistence/Migrations/
 
 ### Application - Portfolio Queries
 
-- [ ] T125 [US1] Create GetPortfolioSummaryQuery in backend/src/AAI.Application/Portfolio/Queries/GetPortfolioSummary/
-- [ ] T126 [US1] Create GetAllocationBreakdownQuery in backend/src/AAI.Application/Portfolio/Queries/GetAllocationBreakdown/
-- [ ] T127 [US1] Create GetPerformanceMetricsQuery in backend/src/AAI.Application/Portfolio/Queries/GetPerformanceMetrics/
-- [ ] T128 [P] [US1] Create PortfolioDTOs in backend/src/AAI.Application/Portfolio/DTOs/
+- [x] T125 [US1] Create GetPortfolioSummaryQuery in backend/src/AAI.Application/Portfolio/Queries/GetPortfolioSummary/
+- [x] T126 [US1] Create GetAllocationBreakdownQuery in backend/src/AAI.Application/Portfolio/Queries/GetAllocationBreakdown/
+- [x] T127 [US1] Create GetPerformanceMetricsQuery in backend/src/AAI.Application/Portfolio/Queries/GetPerformanceMetrics/
+- [x] T128 [P] [US1] Create PortfolioDTOs in backend/src/AAI.Application/Portfolio/DTOs/
 
 ### Application - Position Commands
 
@@ -259,7 +259,7 @@
 
 ### WebAPI - Portfolio
 
-- [ ] T133 [US1] Create PortfolioController in backend/src/AAI.WebAPI/Controllers/PortfolioController.cs
+- [x] T133 [US1] Create PortfolioController in backend/src/AAI.WebAPI/Controllers/PortfolioController.cs
 - [ ] T134 [US1] Create PositionsController in backend/src/AAI.WebAPI/Controllers/PositionsController.cs
 - [ ] T135 [US1] Create AssetsController in backend/src/AAI.WebAPI/Controllers/AssetsController.cs
 - [ ] T136 [US1] Create TransactionsController in backend/src/AAI.WebAPI/Controllers/TransactionsController.cs
@@ -273,9 +273,9 @@
 
 ### Frontend - Portfolio
 
-- [ ] T141 [US1] Create portfolio types in frontend/src/features/portfolio/types/portfolio.ts
-- [ ] T142 [US1] Create portfolioApi service in frontend/src/features/portfolio/api/portfolioApi.ts
-- [ ] T143 [US1] Create usePortfolio hook in frontend/src/features/portfolio/hooks/usePortfolio.ts
+- [x] T141 [US1] Create portfolio types in frontend/src/features/portfolio/types/portfolio.ts
+- [x] T142 [US1] Create portfolioApi service in frontend/src/features/portfolio/api/portfolioApi.ts
+- [x] T143 [US1] Create usePortfolio hook in frontend/src/features/portfolio/hooks/usePortfolio.ts
 - [ ] T144 [US1] Create usePositions hook in frontend/src/features/portfolio/hooks/usePositions.ts
 - [ ] T145 [US1] Create PortfolioDashboard component in frontend/src/features/portfolio/components/PortfolioDashboard.tsx
 - [ ] T146 [P] [US1] Create AllocationChart component with Recharts in frontend/src/features/portfolio/components/AllocationChart.tsx
@@ -297,13 +297,13 @@
 
 ### Domain - Recommendation
 
-- [ ] T152 [P] [US4] Create Recommendation entity in backend/src/AAI.Domain/Entities/Recommendation.cs
-- [ ] T153 [P] [US4] Create IRecommendationRepository interface in backend/src/AAI.Domain/Interfaces/IRecommendationRepository.cs
+- [x] T152 [P] [US4] Create Recommendation entity in backend/src/AAI.Domain/Entities/Recommendation.cs
+- [x] T153 [P] [US4] Create IRecommendationRepository interface in backend/src/AAI.Domain/Interfaces/IRecommendationRepository.cs
 
 ### Infrastructure - Persistence
 
-- [ ] T154 [US4] Create RecommendationConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/RecommendationConfiguration.cs
-- [ ] T155 [US4] Create RecommendationRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/RecommendationRepository.cs
+- [x] T154 [US4] Create RecommendationConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/RecommendationConfiguration.cs
+- [x] T155 [US4] Create RecommendationRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/RecommendationRepository.cs
 
 ### Infrastructure - AI
 
@@ -313,21 +313,21 @@
 
 ### Application - Rebalancing
 
-- [ ] T159 [US4] Create GetRecommendationsQuery in backend/src/AAI.Application/Rebalancing/Queries/GetRecommendations/
-- [ ] T160 [US4] Create RequestRecommendationsCommand in backend/src/AAI.Application/Rebalancing/Commands/RequestRecommendations/
+- [x] T159 [US4] Create GetRecommendationsQuery in backend/src/AAI.Application/Rebalancing/Queries/GetRecommendations/
+- [x] T160 [US4] Create RequestRecommendationsCommand in backend/src/AAI.Application/Rebalancing/Commands/RequestRecommendations/
 - [ ] T161 [US4] Create ApplyRecommendationCommand in backend/src/AAI.Application/Rebalancing/Commands/ApplyRecommendation/
 - [ ] T162 [US4] Create RejectRecommendationCommand in backend/src/AAI.Application/Rebalancing/Commands/RejectRecommendation/
-- [ ] T163 [P] [US4] Create RebalancingDTOs in backend/src/AAI.Application/Rebalancing/DTOs/
+- [x] T163 [P] [US4] Create RebalancingDTOs in backend/src/AAI.Application/Rebalancing/DTOs/
 
 ### WebAPI - Rebalancing
 
-- [ ] T164 [US4] Create RebalancingController in backend/src/AAI.WebAPI/Controllers/RebalancingController.cs
+- [x] T164 [US4] Create RebalancingController in backend/src/AAI.WebAPI/Controllers/RebalancingController.cs
 
 ### Frontend - Rebalancing
 
-- [ ] T165 [US4] Create rebalancing types in frontend/src/features/rebalancing/types/rebalancing.ts
-- [ ] T166 [US4] Create rebalancingApi service in frontend/src/features/rebalancing/api/rebalancingApi.ts
-- [ ] T167 [US4] Create useRecommendations hook in frontend/src/features/rebalancing/hooks/useRecommendations.ts
+- [x] T165 [US4] Create rebalancing types in frontend/src/features/rebalancing/types/rebalancing.ts
+- [x] T166 [US4] Create rebalancingApi service in frontend/src/features/rebalancing/api/rebalancingApi.ts
+- [x] T167 [US4] Create useRecommendations hook in frontend/src/features/rebalancing/hooks/useRecommendations.ts
 - [ ] T168 [US4] Create RecommendationPanel component in frontend/src/features/rebalancing/components/RecommendationPanel.tsx
 - [ ] T169 [P] [US4] Create RecommendationCard component in frontend/src/features/rebalancing/components/RecommendationCard.tsx
 - [ ] T170 [US4] Create ConsentModal for AI data sharing in frontend/src/features/rebalancing/components/ConsentModal.tsx
@@ -344,14 +344,14 @@
 
 ### Domain - News
 
-- [ ] T171 [P] [US3] Create NewsItem entity in backend/src/AAI.Domain/Entities/NewsItem.cs
-- [ ] T172 [P] [US3] Create MarketEvent entity in backend/src/AAI.Domain/Entities/MarketEvent.cs
+- [x] T171 [P] [US3] Create NewsItem entity in backend/src/AAI.Domain/Entities/NewsItem.cs
+- [x] T172 [P] [US3] Create MarketEvent entity in backend/src/AAI.Domain/Entities/MarketEvent.cs
 - [ ] T173 [P] [US3] Create INewsItemRepository interface in backend/src/AAI.Domain/Interfaces/INewsItemRepository.cs
 
 ### Infrastructure - Persistence
 
-- [ ] T174 [US3] Create NewsItemConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/NewsItemConfiguration.cs
-- [ ] T175 [US3] Create MarketEventConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/MarketEventConfiguration.cs
+- [x] T174 [US3] Create NewsItemConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/NewsItemConfiguration.cs
+- [x] T175 [US3] Create MarketEventConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/MarketEventConfiguration.cs
 - [ ] T176 [US3] Create NewsItemRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/NewsItemRepository.cs
 
 ### Infrastructure - News
@@ -417,14 +417,14 @@
 
 ### Domain - Alerts
 
-- [ ] T197 [P] [US6] Create Alert entity in backend/src/AAI.Domain/Entities/Alert.cs
-- [ ] T198 [P] [US6] Create AlertHistory entity in backend/src/AAI.Domain/Entities/AlertHistory.cs
+- [x] T197 [P] [US6] Create Alert entity in backend/src/AAI.Domain/Entities/Alert.cs
+- [x] T198 [P] [US6] Create AlertHistory entity in backend/src/AAI.Domain/Entities/AlertHistory.cs
 - [ ] T199 [P] [US6] Create IAlertRepository interface in backend/src/AAI.Domain/Interfaces/IAlertRepository.cs
 
 ### Infrastructure - Persistence
 
-- [ ] T200 [US6] Create AlertConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AlertConfiguration.cs
-- [ ] T201 [US6] Create AlertHistoryConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AlertHistoryConfiguration.cs
+- [x] T200 [US6] Create AlertConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AlertConfiguration.cs
+- [x] T201 [US6] Create AlertHistoryConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/AlertHistoryConfiguration.cs
 - [ ] T202 [US6] Create AlertRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/AlertRepository.cs
 
 ### Infrastructure - Alerts

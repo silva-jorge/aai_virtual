@@ -21,6 +21,13 @@ public class AAIDbContext : DbContext
     public DbSet<Position> Positions => Set<Position>();
     public DbSet<Transaction> Transactions => Set<Transaction>();
     public DbSet<Recommendation> Recommendations => Set<Recommendation>();
+    public DbSet<NewsItem> NewsItems => Set<NewsItem>();
+    public DbSet<MarketEvent> MarketEvents => Set<MarketEvent>();
+    public DbSet<Benchmark> Benchmarks => Set<Benchmark>();
+    public DbSet<BenchmarkValue> BenchmarkValues => Set<BenchmarkValue>();
+    public DbSet<PriceHistory> PriceHistories => Set<PriceHistory>();
+    public DbSet<Alert> Alerts => Set<Alert>();
+    public DbSet<AlertHistory> AlertHistories => Set<AlertHistory>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

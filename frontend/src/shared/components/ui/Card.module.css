@@ -1,0 +1,41 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.default {
+  border: 1px solid #e2e8f0;
+}
+
+.outlined {
+  border: 2px solid #cbd5e0;
+}
+
+.elevated {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07),
+              0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.elevated:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1),
+              0 15px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Padding variants */
+.padding-none {
+  padding: 0;
+}
+
+.padding-small {
+  padding: 0.75rem;
+}
+
+.padding-medium {
+  padding: 1.5rem;
+}
+
+.padding-large {
+  padding: 2rem;
+}
