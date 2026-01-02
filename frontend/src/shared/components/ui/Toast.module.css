@@ -1,0 +1,212 @@
+/**
+ * Toast Component Styles
+ */
+
+.toastContainer {
+  position: fixed;
+  z-index: var(--z-index-toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  pointer-events: none;
+}
+
+/* Position variants */
+.toastContainer--top-right {
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+}
+
+.toastContainer--top-left {
+  top: var(--spacing-4);
+  left: var(--spacing-4);
+}
+
+.toastContainer--bottom-right {
+  bottom: var(--spacing-4);
+  right: var(--spacing-4);
+}
+
+.toastContainer--bottom-left {
+  bottom: var(--spacing-4);
+  left: var(--spacing-4);
+}
+
+.toastContainer--top-center {
+  top: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.toastContainer--bottom-center {
+  bottom: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  padding: var(--spacing-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  min-width: 300px;
+  max-width: 500px;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all var(--transition-base);
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.toast--exiting {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+/* Type variants */
+.toast--success {
+  border-left: 4px solid var(--color-success);
+}
+
+.toast--success .toastIcon {
+  color: var(--color-success);
+}
+
+.toast--error {
+  border-left: 4px solid var(--color-danger);
+}
+
+.toast--error .toastIcon {
+  color: var(--color-danger);
+}
+
+.toast--warning {
+  border-left: 4px solid var(--color-warning);
+}
+
+.toast--warning .toastIcon {
+  color: var(--color-warning);
+}
+
+.toast--info {
+  border-left: 4px solid var(--color-primary-500);
+}
+
+.toast--info .toastIcon {
+  color: var(--color-primary-500);
+}
+
+.toastIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toastMessage {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+}
+
+.closeButton {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: var(--spacing-1);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeButton:hover {
+  background-color: var(--color-gray-100);
+  color: var(--color-text);
+}
+
+.closeButton:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* Animations for left-positioned toasts */
+.toastContainer--top-left .toast,
+.toastContainer--bottom-left .toast {
+  transform: translateX(-100%);
+}
+
+.toastContainer--top-left .toast--visible,
+.toastContainer--bottom-left .toast--visible {
+  transform: translateX(0);
+}
+
+.toastContainer--top-left .toast--exiting,
+.toastContainer--bottom-left .toast--exiting {
+  transform: translateX(-100%);
+}
+
+/* Animations for center-positioned toasts */
+.toastContainer--top-center .toast,
+.toastContainer--bottom-center .toast {
+  transform: translateY(-100%);
+}
+
+.toastContainer--top-center .toast--visible,
+.toastContainer--bottom-center .toast--visible {
+  transform: translateY(0);
+}
+
+.toastContainer--top-center .toast--exiting,
+.toastContainer--bottom-center .toast--exiting {
+  transform: translateY(-100%);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .closeButton:hover {
+    background-color: var(--color-gray-800);
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .toastContainer {
+    left: var(--spacing-2);
+    right: var(--spacing-2);
+  }
+
+  .toastContainer--top-right,
+  .toastContainer--top-left,
+  .toastContainer--top-center {
+    top: var(--spacing-2);
+    left: var(--spacing-2);
+    right: var(--spacing-2);
+    transform: none;
+  }
+
+  .toastContainer--bottom-right,
+  .toastContainer--bottom-left,
+  .toastContainer--bottom-center {
+    bottom: var(--spacing-2);
+    left: var(--spacing-2);
+    right: var(--spacing-2);
+    transform: none;
+  }
+
+  .toast {
+    min-width: unset;
+    max-width: unset;
+  }
+}

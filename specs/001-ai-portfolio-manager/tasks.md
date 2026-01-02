@@ -35,7 +35,7 @@
 - [x] T007 Install NuGet packages for all backend projects per quickstart.md
 - [x] T008 Install npm packages for frontend per quickstart.md in frontend/package.json
 - [x] T009 [P] Create appsettings.json and appsettings.Development.json in backend/src/AAI.WebAPI/
-- [ ] T010 [P] Create .env.development for frontend in frontend/.env.development
+- [x] T010 [P] Create .env.development for frontend in frontend/.env.development
 - [x] T011 [P] Create .gitignore for repository root
 
 ---
@@ -87,7 +87,7 @@
 - [x] T039 Configure Program.cs with DI, middleware, Serilog in backend/src/AAI.WebAPI/Program.cs
 - [x] T040 [P] Create ExceptionHandlingMiddleware in backend/src/AAI.WebAPI/Middleware/ExceptionHandlingMiddleware.cs
 - [x] T041 [P] Create RequestLoggingMiddleware in backend/src/AAI.WebAPI/Middleware/RequestLoggingMiddleware.cs
-- [ ] T042 [P] Create ValidationFilter in backend/src/AAI.WebAPI/Filters/ValidationFilter.cs
+- [x] T042 [P] Create ValidationFilter in backend/src/AAI.WebAPI/Filters/ValidationFilter.cs
 - [x] T043 Configure Swagger/OpenAPI in backend/src/AAI.WebAPI/Program.cs
 - [x] T044 Configure CORS for frontend origin in backend/src/AAI.WebAPI/Program.cs
 
@@ -97,24 +97,24 @@
 - [x] T046 [P] Create QueryProvider with React Query in frontend/src/app/providers/QueryProvider.tsx
 - [x] T047 [P] Create NotificationProvider in frontend/src/app/providers/NotificationProvider.tsx
 - [x] T048 Create routes.tsx with React Router in frontend/src/app/routes.tsx
-- [ ] T049 [P] Create apiClient with Axios in frontend/src/services/api/apiClient.ts
-- [ ] T050 [P] Create endpoints constants in frontend/src/services/api/endpoints.ts
+- [x] T049 [P] Create apiClient with Axios in frontend/src/services/api/apiClient.ts
+- [x] T050 [P] Create endpoints constants in frontend/src/services/api/endpoints.ts
 - [x] T051 Create CSS design tokens in frontend/src/shared/styles/tokens.css
 - [x] T052 [P] Create global styles in frontend/src/shared/styles/globals.css
-- [ ] T053 [P] Create CSS variables in frontend/src/shared/styles/variables.css
+- [x] T053 [P] Create CSS variables in frontend/src/shared/styles/variables.css
 - [x] T054 [P] Create Button component in frontend/src/shared/components/ui/Button.tsx
 - [x] T055 [P] Create Card component in frontend/src/shared/components/ui/Card.tsx
-- [ ] T056 [P] Create Modal component in frontend/src/shared/components/ui/Modal.tsx
-- [ ] T057 [P] Create Toast component in frontend/src/shared/components/ui/Toast.tsx
-- [ ] T058 [P] Create Skeleton component in frontend/src/shared/components/ui/Skeleton.tsx
+- [x] T056 [P] Create Modal component in frontend/src/shared/components/ui/Modal.tsx
+- [x] T057 [P] Create Toast component in frontend/src/shared/components/ui/Toast.tsx
+- [x] T058 [P] Create Skeleton component in frontend/src/shared/components/ui/Skeleton.tsx
 - [x] T059 [P] Create Input component in frontend/src/shared/components/ui/Input.tsx
-- [ ] T060 [P] Create Select component in frontend/src/shared/components/ui/Select.tsx
+- [x] T060 [P] Create Select component in frontend/src/shared/components/ui/Select.tsx
 - [ ] T061 Create MainLayout component in frontend/src/shared/components/layout/MainLayout.tsx
 - [ ] T062 [P] Create Header component in frontend/src/shared/components/layout/Header.tsx
 - [ ] T063 [P] Create Sidebar component in frontend/src/shared/components/layout/Sidebar.tsx
 - [ ] T064 [P] Create PageContainer component in frontend/src/shared/components/layout/PageContainer.tsx
 - [ ] T065 Create formatters utilities in frontend/src/shared/utils/formatters.ts
-- [ ] T066 [P] Create validators utilities in frontend/src/shared/utils/validators.ts
+- [x] T066 [P] Create validators utilities in frontend/src/shared/utils/validators.ts
 - [ ] T067 Create common types in frontend/src/shared/types/common.ts
 - [x] T068 Create main.tsx entry point in frontend/src/main.tsx
 
