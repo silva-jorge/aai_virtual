@@ -159,13 +159,13 @@
 
 ### Application - Profile
 
-- [ ] T083 [US8] Create ExportDataQuery in backend/src/AAI.Application/UserProfile/Queries/ExportData/
-- [ ] T084 [US8] Create ImportDataCommand in backend/src/AAI.Application/UserProfile/Commands/ImportData/
-- [ ] T085 [US8] Create DeleteAllDataCommand in backend/src/AAI.Application/UserProfile/Commands/DeleteAllData/
+- [x] T083 [US8] Create ExportDataQuery in backend/src/AAI.Application/UserProfile/Queries/ExportData/
+- [x] T084 [US8] Create ImportDataCommand in backend/src/AAI.Application/UserProfile/Commands/ImportData/
+- [x] T085 [US8] Create DeleteAllDataCommand in backend/src/AAI.Application/UserProfile/Commands/DeleteAllData/
 
 ### WebAPI - Profile (Security)
 
-- [ ] T086 [US8] Create ProfileController export/import/delete endpoints in backend/src/AAI.WebAPI/Controllers/ProfileController.cs
+- [x] T086 [US8] Create ProfileController export/import/delete endpoints in backend/src/AAI.WebAPI/Controllers/ProfileController.cs
 
 ### Frontend - Auth
 
