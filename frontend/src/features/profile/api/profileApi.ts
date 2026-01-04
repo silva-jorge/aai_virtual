@@ -1,17 +1,16 @@
 import axios from 'axios';
 import type { UserProfile, UpdateRiskProfileRequest, UpdateThresholdsRequest } from '../types/profile';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5032/api';
+import { API_ENDPOINTS } from '../../../services/api/config';
 
 export const profileApi = {
   async getProfile(): Promise<UserProfile> {
-    const response = await axios.get<UserProfile>(`${API_BASE_URL}/profile`);
+    const response = await axios.get<UserProfile>(API_ENDPOINTS.profile.get);
     return response.data;
   },
 
   async updateRiskProfile(data: UpdateRiskProfileRequest): Promise<UserProfile> {
     const response = await axios.put<UserProfile>(
-      `${API_BASE_URL}/profile/risk-profile`,
+      API_ENDPOINTS.profile.updateRiskProfile,
       data
     );
     return response.data;
@@ -19,7 +18,7 @@ export const profileApi = {
 
   async updateThresholds(data: UpdateThresholdsRequest): Promise<UserProfile> {
     const response = await axios.put<UserProfile>(
-      `${API_BASE_URL}/profile/thresholds`,
+      API_ENDPOINTS.profile.updateThresholds,
       data
     );
     return response.data;

@@ -4,7 +4,7 @@ import styles from './LoginPage.module.css';
 
 export const LoginPage = () => {
   const [pin, setPin] = useState('');
-  const { login, isLoggingIn } = useAuth();
+  const { login, isLoading: isLoggingIn } = useAuth();
   const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {

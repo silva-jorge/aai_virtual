@@ -9,14 +9,14 @@ namespace AAI.Application.Auth.Commands.ChangePassword;
 /// </summary>
 public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ChangePasswordResponse>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserProfileRepository _userProfileRepository;
     private readonly IPasswordHashingService _passwordHasher;
 
     public ChangePasswordCommandHandler(
-        IUnitOfWork unitOfWork,
+        IUserProfileRepository userProfileRepository,
         IPasswordHashingService passwordHasher)
     {
-        _unitOfWork = unitOfWork;
+        _userProfileRepository = userProfileRepository;
         _passwordHasher = passwordHasher;
     }
 
@@ -24,8 +24,10 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
         ChangePasswordCommand request,
         CancellationToken cancellationToken)
     {
+        var userId = Guid.Parse(request.UserId);
+
         // Get user by ID
-        var user = await _unitOfWork.UserProfiles.GetByIdAsync(request.UserId, cancellationToken);
+        var user = await _userProfileRepository.GetByIdAsync(userId, cancellationToken);
         if (user == null)
         {
             return new ChangePasswordResponse
@@ -36,7 +38,7 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
         }
 
         // Verify current password
-        if (!_passwordHasher.VerifyPassword(request.CurrentPassword, user.PasswordHash))
+        if (!_passwordHasher.VerifyPassword(request.CurrentPassword, user.PasswordHash, user.PasswordSalt))
         {
             return new ChangePasswordResponse
             {
@@ -46,12 +48,12 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
         }
 
         // Hash and set new password
-        var hashedPassword = _passwordHasher.HashPassword(request.NewPassword);
-        user.SetPassword(hashedPassword);
+        var hashedPassword = _passwordHasher.HashPassword(request.NewPassword, out var salt);
+        user.PasswordHash = hashedPassword;
+        user.PasswordSalt = salt;
 
         // Save changes
-        _unitOfWork.UserProfiles.Update(user);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _userProfileRepository.UpdateAsync(user, cancellationToken);
 
         return new ChangePasswordResponse
         {

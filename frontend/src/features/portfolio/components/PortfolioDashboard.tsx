@@ -13,10 +13,10 @@ import styles from './PortfolioDashboard.module.css';
  * Displays portfolio summary, allocation breakdown, and position list
  */
 export const PortfolioDashboard: React.FC = () => {
-  const { portfolio, summary, isLoading: portfolioLoading, error } = usePortfolio();
-  const { positions, isLoading: positionsLoading } = usePositions(portfolio?.id);
+  const { summary, isLoading: summaryLoading, error } = usePortfolio();
+  const { positions, isLoading: positionsLoading } = usePositions();
 
-  const isLoading = portfolioLoading || positionsLoading;
+  const isLoading = summaryLoading || positionsLoading;
 
   if (isLoading) {
     return (
@@ -30,7 +30,7 @@ export const PortfolioDashboard: React.FC = () => {
     return (
       <div className={styles.container}>
         <div className={styles.error} role="alert">
-          {error}
+          <p>{error?.message || 'An error occurred'}</p>
         </div>
       </div>
     );
@@ -47,10 +47,7 @@ export const PortfolioDashboard: React.FC = () => {
   }
 
   // Prepare data for allocation chart
-  const allocationData = summary.allocation?.map((item: any) => ({
-    name: item.assetClass,
-    value: item.percentage,
-  })) || [];
+  const allocationData: { name: string; value: number }[] = [];
 
   // Prepare data for performance chart (mock data)
   const performanceData = [
@@ -59,7 +56,7 @@ export const PortfolioDashboard: React.FC = () => {
     { month: 'Mar', value: 11000 },
     { month: 'Apr', value: 10800 },
     { month: 'May', value: 11500 },
-    { month: 'Jun', value: summary.totalValue },
+    { month: 'Jun', value: summary.currentValue },
   ];
 
   return (
@@ -72,7 +69,7 @@ export const PortfolioDashboard: React.FC = () => {
           <div className={styles.summaryContent}>
             <p className={styles.summaryLabel}>Total Value</p>
             <p className={styles.summaryValue}>
-              {formatCurrency(summary.totalValue)}
+              {formatCurrency(summary.currentValue)}
             </p>
           </div>
         </Card>
@@ -81,7 +78,7 @@ export const PortfolioDashboard: React.FC = () => {
           <div className={styles.summaryContent}>
             <p className={styles.summaryLabel}>Total Invested</p>
             <p className={styles.summaryValue}>
-              {formatCurrency(summary.totalCost)}
+              {formatCurrency(summary.totalInvested)}
             </p>
           </div>
         </Card>
@@ -89,8 +86,8 @@ export const PortfolioDashboard: React.FC = () => {
         <Card className={styles.summaryCard}>
           <div className={styles.summaryContent}>
             <p className={styles.summaryLabel}>Total Gain/Loss</p>
-            <p className={`${styles.summaryValue} ${summary.totalGain >= 0 ? styles.positive : styles.negative}`}>
-              {formatCurrency(summary.totalGain)}
+            <p className={`${styles.summaryValue} ${summary.totalGainLoss >= 0 ? styles.positive : styles.negative}`}>
+              {formatCurrency(summary.totalGainLoss)}
             </p>
           </div>
         </Card>
@@ -98,8 +95,8 @@ export const PortfolioDashboard: React.FC = () => {
         <Card className={styles.summaryCard}>
           <div className={styles.summaryContent}>
             <p className={styles.summaryLabel}>Return %</p>
-            <p className={`${styles.summaryValue} ${summary.returnPercent >= 0 ? styles.positive : styles.negative}`}>
-              {formatPercentage(summary.returnPercent / 100)}
+            <p className={`${styles.summaryValue} ${summary.totalGainLossPercent >= 0 ? styles.positive : styles.negative}`}>
+              {formatPercentage(summary.totalGainLossPercent / 100)}
             </p>
           </div>
         </Card>
@@ -142,7 +139,7 @@ export const PortfolioDashboard: React.FC = () => {
       <Card className={styles.positionsCard}>
         <h2 className={styles.sectionTitle}>Your Positions</h2>
         <PositionList
-          positions={positions}
+          positions={positions || []}
           isLoading={positionsLoading}
           showActions={true}
         />

@@ -10,14 +10,14 @@ namespace AAI.Application.Auth.Commands.RefreshToken;
 public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, RefreshTokenResponse>
 {
     private readonly IJwtTokenService _jwtTokenService;
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserProfileRepository _userProfileRepository;
 
     public RefreshTokenCommandHandler(
         IJwtTokenService jwtTokenService,
-        IUnitOfWork unitOfWork)
+        IUserProfileRepository userProfileRepository)
     {
         _jwtTokenService = jwtTokenService;
-        _unitOfWork = unitOfWork;
+        _userProfileRepository = userProfileRepository;
     }
 
     public async Task<RefreshTokenResponse> Handle(
@@ -27,22 +27,22 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, R
         try
         {
             // Validate and extract user ID from refresh token
-            var (userId, isValid) = _jwtTokenService.ValidateRefreshToken(request.RefreshToken);
+            var isValid = _jwtTokenService.ValidateRefreshToken(request.RefreshToken, out var userId);
 
-            if (!isValid || string.IsNullOrEmpty(userId))
+            if (!isValid || userId == Guid.Empty)
             {
                 throw new UnauthorizedAccessException("Invalid refresh token");
             }
 
             // Get user to verify still exists and active
-            var user = await _unitOfWork.UserProfiles.GetByIdAsync(userId, cancellationToken);
+            var user = await _userProfileRepository.GetByIdAsync(userId, cancellationToken);
             if (user == null)
             {
                 throw new UnauthorizedAccessException("User not found");
             }
 
             // Generate new tokens
-            var accessToken = _jwtTokenService.GenerateAccessToken(user.Id, user.Email);
+            var accessToken = _jwtTokenService.GenerateAccessToken(user.Id);
             var refreshToken = _jwtTokenService.GenerateRefreshToken();
 
             return new RefreshTokenResponse

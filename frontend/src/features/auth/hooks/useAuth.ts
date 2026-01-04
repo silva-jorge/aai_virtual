@@ -37,10 +37,10 @@ export const useAuth = () => {
     login: loginMutation.mutate,
     register: registerMutation.mutate,
     logout,
-    isLoggingIn: loginMutation.isPending,
+    isLoading: loginMutation.isPending,
     isRegistering: registerMutation.isPending,
-    loginError: loginMutation.error,
-    registerError: registerMutation.error,
+    error: loginMutation.error,
+    user: authApi.getUserProfile(),
     isAuthenticated: authApi.isAuthenticated(),
     userProfile: authApi.getUserProfile()
   };

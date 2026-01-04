@@ -91,7 +91,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, RegisterR
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             // Generate JWT token
-            var token = _jwtTokenService.GenerateToken(userProfile.Id);
+            var token = _jwtTokenService.GenerateAccessToken(userProfile.Id);
 
             _logger.LogInformation("User registered successfully with ID: {UserId}", userProfile.Id);
 

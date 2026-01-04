@@ -4,6 +4,10 @@ using AAI.Application.Portfolio.DTOs;
 using AAI.Application.UserProfile.DTOs;
 using AAI.Application.Rebalancing.DTOs;
 using AAI.Domain.Entities;
+using PortfolioEntity = AAI.Domain.Entities.Portfolio;
+using PositionEntity = AAI.Domain.Entities.Position;
+using UserProfileEntity = AAI.Domain.Entities.UserProfile;
+using RecommendationEntity = AAI.Domain.Entities.Recommendation;
 
 namespace AAI.Application.Common.Mappings;
 
@@ -16,39 +20,22 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         // Portfolio Mappings
-        CreateMap<Portfolio, PortfolioSummaryDTO>()
-            .ForMember(d => d.TotalValue, o => o.MapFrom(s => s.Positions.Sum(p => p.CurrentValue)))
-            .ForMember(d => d.TotalCost, o => o.MapFrom(s => s.Positions.Sum(p => p.AverageCost * p.Quantity)))
+        CreateMap<PortfolioEntity, PortfolioSummaryDto>()
             .ReverseMap();
 
-        CreateMap<Portfolio, PortfolioDetailDTO>()
-            .ReverseMap();
-
-        CreateMap<Position, PositionDTO>()
-            .ReverseMap();
-
-        CreateMap<Asset, AssetDTO>()
-            .ReverseMap();
-
-        CreateMap<Transaction, TransactionDTO>()
+        CreateMap<PositionEntity, PositionDto>()
             .ReverseMap();
 
         // User Profile Mappings
-        CreateMap<UserProfile, UserProfileDTO>()
-            .ReverseMap();
-
-        CreateMap<UserProfile, UserProfileDetailDTO>()
+        CreateMap<UserProfileEntity, UserProfileDto>()
             .ReverseMap();
 
         // Recommendation Mappings
-        CreateMap<Recommendation, RecommendationDTO>()
-            .ReverseMap();
-
-        CreateMap<Recommendation, RecommendationDetailDTO>()
+        CreateMap<RecommendationEntity, RecommendationDto>()
             .ReverseMap();
 
         // Auth Mappings
-        CreateMap<UserProfile, AuthUserDTO>()
+        CreateMap<UserProfileEntity, AuthUserDTO>()
             .ReverseMap();
     }
 }

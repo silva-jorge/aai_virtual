@@ -1,61 +1,56 @@
-// Portfolio types
-export interface PortfolioSummary {
+/**
+ * DTO for Position data from the API
+ */
+export interface PositionDTO {
   id: string;
-  name: string;
-  description?: string;
-  currency: string;
-  totalInvested: number;
-  currentValue: number;
-  totalGainLoss: number;
-  totalGainLossPercent: number;
-  positionsCount: number;
-  assetsCount: number;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface Position {
-  id: string;
-  assetId: string;
-  ticker: string;
+  assetTicker: string;
   assetName: string;
   assetClass: string;
   quantity: number;
-  averageCost: number;
   currentPrice: number;
-  totalInvested: number;
   currentValue: number;
-  allocationPercent: number;
+  costBasis: number;
   gainLoss: number;
-  gainLossPercent: number;
+  priceChangePercent?: number;
+  allocationPercent?: number;
+  portfolioId: string;
 }
 
-export interface AssetClassAllocation {
+/**
+ * DTO for Portfolio data from the API
+ */
+export interface PortfolioDTO {
+  id: string;
+  userId: string;
+  name: string;
+  totalValue: number;
+  totalCost: number;
+  totalGainLoss: number;
+  totalGainLossPercent: number;
+  positions: PositionDTO[];
+}
+
+/**
+ * DTO for creating a new position
+ */
+export interface CreatePositionDTO {
+  assetTicker: string;
+  assetName: string;
   assetClass: string;
-  value: number;
-  percent: number;
-  positionsCount: number;
+  quantity: number;
+  currentPrice: number;
+  costBasis: number;
+  portfolioId: string;
 }
 
-export interface AllocationBreakdown {
-  byAssetClass: AssetClassAllocation[];
-  topPositions: Position[];
-}
-
-export interface PerformanceHistory {
-  date: string;
-  value: number;
-  returnPercent: number;
-}
-
-export interface PerformanceMetrics {
-  totalReturn: number;
-  totalReturnPercent: number;
-  dayChange: number;
-  dayChangePercent: number;
-  monthReturn: number;
-  monthReturnPercent: number;
-  yearReturn: number;
-  yearReturnPercent: number;
-  history: PerformanceHistory[];
+/**
+ * DTO for updating a position
+ */
+export interface UpdatePositionDTO {
+  assetTicker?: string;
+  assetName?: string;
+  assetClass?: string;
+  quantity?: number;
+  currentPrice?: number;
+  costBasis?: number;
 }

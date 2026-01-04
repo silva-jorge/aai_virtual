@@ -9,14 +9,14 @@ namespace AAI.Application.Auth.Commands.SetupPassword;
 /// </summary>
 public class SetupPasswordCommandHandler : IRequestHandler<SetupPasswordCommand, SetupPasswordResponse>
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IUserProfileRepository _userProfileRepository;
     private readonly IPasswordHashingService _passwordHasher;
 
     public SetupPasswordCommandHandler(
-        IUnitOfWork unitOfWork,
+        IUserProfileRepository userProfileRepository,
         IPasswordHashingService passwordHasher)
     {
-        _unitOfWork = unitOfWork;
+        _userProfileRepository = userProfileRepository;
         _passwordHasher = passwordHasher;
     }
 
@@ -24,8 +24,10 @@ public class SetupPasswordCommandHandler : IRequestHandler<SetupPasswordCommand,
         SetupPasswordCommand request,
         CancellationToken cancellationToken)
     {
+        var userId = Guid.Parse(request.UserId);
+
         // Get user by ID
-        var user = await _unitOfWork.UserProfiles.GetByIdAsync(request.UserId, cancellationToken);
+        var user = await _userProfileRepository.GetByIdAsync(userId, cancellationToken);
         if (user == null)
         {
             return new SetupPasswordResponse
@@ -46,12 +48,12 @@ public class SetupPasswordCommandHandler : IRequestHandler<SetupPasswordCommand,
         }
 
         // Hash and set password
-        var hashedPassword = _passwordHasher.HashPassword(request.Password);
-        user.SetPassword(hashedPassword);
+        var hashedPassword = _passwordHasher.HashPassword(request.Password, out var salt);
+        user.PasswordHash = hashedPassword;
+        user.PasswordSalt = salt;
 
         // Save changes
-        _unitOfWork.UserProfiles.Update(user);
-        await _unitOfWork.SaveChangesAsync(cancellationToken);
+        await _userProfileRepository.UpdateAsync(user, cancellationToken);
 
         return new SetupPasswordResponse
         {

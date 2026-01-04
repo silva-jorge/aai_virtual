@@ -14,7 +14,7 @@ public interface IPositionRepository : IRepository<Position>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of positions in the portfolio</returns>
     Task<IEnumerable<Position>> GetByPortfolioIdAsync(
-        string portfolioId,
+        Guid portfolioId,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -24,7 +24,7 @@ public interface IPositionRepository : IRepository<Position>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>List of positions holding this asset</returns>
     Task<IEnumerable<Position>> GetByAssetIdAsync(
-        string assetId,
+        Guid assetId,
         CancellationToken cancellationToken = default);
 
     /// <summary>
@@ -34,6 +34,6 @@ public interface IPositionRepository : IRepository<Position>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>Position with Asset and Portfolio data loaded</returns>
     Task<Position?> GetWithDetailsAsync(
-        string id,
+        Guid id,
         CancellationToken cancellationToken = default);
 }

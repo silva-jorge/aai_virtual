@@ -11,7 +11,7 @@ import styles from './ProfileSettings.module.css';
  * Allows users to set risk profile and rebalancing thresholds
  */
 export const ProfileSettings: React.FC = () => {
-  const { profile, isLoading, error, updateProfile } = useProfile();
+  const { profile, isLoading, error, updateRiskProfile, updateThresholds, isUpdatingRiskProfile, isUpdatingThresholds } = useProfile();
 
   const [riskProfile, setRiskProfile] = useState<string>('moderate');
   const [thresholds, setThresholds] = useState({
@@ -37,10 +37,8 @@ export const ProfileSettings: React.FC = () => {
     setSaveSuccess(false);
 
     try {
-      await updateProfile({
-        riskProfile,
-        thresholds,
-      });
+      await updateRiskProfile({ riskProfile });
+      await updateThresholds({ ...thresholds });
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (err) {
@@ -105,9 +103,9 @@ export const ProfileSettings: React.FC = () => {
           variant="primary"
           size="lg"
           onClick={handleSave}
-          disabled={isSaving}
+          disabled={isSaving || isUpdatingRiskProfile || isUpdatingThresholds}
         >
-          {isSaving ? 'Saving...' : 'Save Settings'}
+          {isSaving || isUpdatingRiskProfile || isUpdatingThresholds ? 'Saving...' : 'Save Settings'}
         </Button>
       </div>
     </div>

@@ -58,7 +58,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
             }
 
             // Generate JWT token
-            var token = _jwtTokenService.GenerateToken(user.Id);
+            var token = _jwtTokenService.GenerateAccessToken(user.Id);
 
             _logger.LogInformation("User {UserId} logged in successfully", user.Id);
 

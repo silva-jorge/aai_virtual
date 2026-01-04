@@ -18,10 +18,10 @@ public class PositionRepository : Repository<Position>, IPositionRepository
     /// Get all positions for a specific portfolio with related data
     /// </summary>
     public async Task<IEnumerable<Position>> GetByPortfolioIdAsync(
-        string portfolioId,
+        Guid portfolioId,
         CancellationToken cancellationToken = default)
     {
-        return await _context.Positions
+        return await Context.Positions
             .AsNoTracking()
             .Where(p => p.PortfolioId == portfolioId)
             .Include(p => p.Asset)
@@ -33,10 +33,10 @@ public class PositionRepository : Repository<Position>, IPositionRepository
     /// Get all positions holding a specific asset across portfolios
     /// </summary>
     public async Task<IEnumerable<Position>> GetByAssetIdAsync(
-        string assetId,
+        Guid assetId,
         CancellationToken cancellationToken = default)
     {
-        return await _context.Positions
+        return await Context.Positions
             .AsNoTracking()
             .Where(p => p.AssetId == assetId)
             .Include(p => p.Portfolio)
@@ -48,10 +48,10 @@ public class PositionRepository : Repository<Position>, IPositionRepository
     /// Get a position with all related entities fully loaded
     /// </summary>
     public async Task<Position?> GetWithDetailsAsync(
-        string id,
+        Guid id,
         CancellationToken cancellationToken = default)
     {
-        return await _context.Positions
+        return await Context.Positions
             .AsNoTracking()
             .Where(p => p.Id == id)
             .Include(p => p.Asset)

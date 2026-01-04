@@ -1,7 +1,6 @@
 import axios, { AxiosError } from 'axios';
 import type { LoginRequest, RegisterRequest, AuthResponse } from '../types/auth';
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5032/api';
+import { API_ENDPOINTS, API_BASE_URL } from '../../../services/api/config';
 
 const TOKEN_KEY = 'aai_auth_token';
 const USER_KEY = 'aai_user_profile';
@@ -10,7 +9,7 @@ export const authApi = {
   async login(request: LoginRequest): Promise<AuthResponse> {
     try {
       const response = await axios.post<AuthResponse>(
-        `${API_BASE_URL}/auth/login`,
+        API_ENDPOINTS.auth.login,
         request
       );
       
@@ -45,7 +44,7 @@ export const authApi = {
   async register(request: RegisterRequest): Promise<AuthResponse> {
     try {
       const response = await axios.post<AuthResponse>(
-        `${API_BASE_URL}/auth/register`,
+        API_ENDPOINTS.auth.register,
         request
       );
       
@@ -82,7 +81,7 @@ export const authApi = {
     if (!token) return false;
 
     try {
-      await axios.get(`${API_BASE_URL}/auth/verify`, {
+      await axios.get(API_ENDPOINTS.auth.verify, {
         headers: { Authorization: `Bearer ${token}` }
       });
       return true;

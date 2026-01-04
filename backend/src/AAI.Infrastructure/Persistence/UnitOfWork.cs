@@ -1,4 +1,6 @@
+using AAI.Domain.Entities;
 using AAI.Domain.Interfaces;
+using AAI.Infrastructure.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace AAI.Infrastructure.Persistence;
@@ -15,6 +17,20 @@ public class UnitOfWork : IUnitOfWork
     {
         _context = context;
     }
+
+    public IRepository<UserProfile> UserProfiles => new Repository<UserProfile>(_context);
+    public IRepository<Portfolio> Portfolios => new Repository<Portfolio>(_context);
+    public IRepository<Position> Positions => new Repository<Position>(_context);
+    public IRepository<Asset> Assets => new Repository<Asset>(_context);
+    public IRepository<Transaction> Transactions => new Repository<Transaction>(_context);
+    public IRepository<Recommendation> Recommendations => new Repository<Recommendation>(_context);
+    public IRepository<Alert> Alerts => new Repository<Alert>(_context);
+    public IRepository<AlertHistory> AlertHistories => new Repository<AlertHistory>(_context);
+    public IRepository<Benchmark> Benchmarks => new Repository<Benchmark>(_context);
+    public IRepository<BenchmarkValue> BenchmarkValues => new Repository<BenchmarkValue>(_context);
+    public IRepository<MarketEvent> MarketEvents => new Repository<MarketEvent>(_context);
+    public IRepository<NewsItem> NewsItems => new Repository<NewsItem>(_context);
+    public IRepository<PriceHistory> PriceHistories => new Repository<PriceHistory>(_context);
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

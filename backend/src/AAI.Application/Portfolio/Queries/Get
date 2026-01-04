@@ -1,0 +1,32 @@
+using AAI.Application.Portfolio.DTOs;
+using AAI.Domain.Interfaces;
+using MapsterMapper;
+using MediatR;
+
+namespace AAI.Application.Portfolio.Queries.GetPositions;
+
+/// <summary>
+/// Query para obter todas as posições do usuário
+/// </summary>
+public record GetPositionsQuery(string UserId) : IRequest<List<PositionDto>>;
+
+/// <summary>
+/// Handler para a query GetPositionsQuery
+/// </summary>
+public class GetPositionsQueryHandler : IRequestHandler<GetPositionsQuery, List<PositionDto>>
+{
+    private readonly IPositionRepository _positionRepository;
+    private readonly IMapper _mapper;
+
+    public GetPositionsQueryHandler(IPositionRepository positionRepository, IMapper mapper)
+    {
+        _positionRepository = positionRepository;
+        _mapper = mapper;
+    }
+
+    public async Task<List<PositionDto>> Handle(GetPositionsQuery request, CancellationToken cancellationToken)
+    {
+        var positions = await _positionRepository.GetByUserIdAsync(request.UserId);
+        return _mapper.Map<List<PositionDto>>(positions);
+    }
+}
