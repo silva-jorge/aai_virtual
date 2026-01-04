@@ -68,7 +68,7 @@
 - [x] T026 [P] Create ValidationBehavior in backend/src/AAI.Application/Common/Behaviors/ValidationBehavior.cs
 - [x] T027 [P] Create LoggingBehavior in backend/src/AAI.Application/Common/Behaviors/LoggingBehavior.cs
 - [x] T028 [P] Create CachingBehavior in backend/src/AAI.Application/Common/Behaviors/CachingBehavior.cs
-- [ ] T029 Create AutoMapper MappingProfile in backend/src/AAI.Application/Common/Mappings/MappingProfile.cs
+- [x] T029 Create AutoMapper MappingProfile in backend/src/AAI.Application/Common/Mappings/MappingProfile.cs
 - [x] T030 [P] Create IMarketDataService interface in backend/src/AAI.Application/Common/Interfaces/IMarketDataService.cs
 - [x] T031 [P] Create INewsService interface in backend/src/AAI.Application/Common/Interfaces/INewsService.cs
 - [x] T032 [P] Create IAIRecommendationService interface in backend/src/AAI.Application/Common/Interfaces/IAIRecommendationService.cs
@@ -109,13 +109,13 @@
 - [x] T058 [P] Create Skeleton component in frontend/src/shared/components/ui/Skeleton.tsx
 - [x] T059 [P] Create Input component in frontend/src/shared/components/ui/Input.tsx
 - [x] T060 [P] Create Select component in frontend/src/shared/components/ui/Select.tsx
-- [ ] T061 Create MainLayout component in frontend/src/shared/components/layout/MainLayout.tsx
-- [ ] T062 [P] Create Header component in frontend/src/shared/components/layout/Header.tsx
-- [ ] T063 [P] Create Sidebar component in frontend/src/shared/components/layout/Sidebar.tsx
-- [ ] T064 [P] Create PageContainer component in frontend/src/shared/components/layout/PageContainer.tsx
-- [ ] T065 Create formatters utilities in frontend/src/shared/utils/formatters.ts
+- [x] T061 Create MainLayout component in frontend/src/shared/components/layout/MainLayout.tsx
+- [x] T062 [P] Create Header component in frontend/src/shared/components/layout/Header.tsx
+- [x] T063 [P] Create Sidebar component in frontend/src/shared/components/layout/Sidebar.tsx
+- [x] T064 [P] Create PageContainer component in frontend/src/shared/components/layout/PageContainer.tsx
+- [x] T065 Create formatters utilities in frontend/src/shared/utils/formatters.ts
 - [x] T066 [P] Create validators utilities in frontend/src/shared/utils/validators.ts
-- [ ] T067 Create common types in frontend/src/shared/types/common.ts
+- [x] T067 Create common types in frontend/src/shared/types/common.ts
 - [x] T068 Create main.tsx entry point in frontend/src/main.tsx
 
 **Checkpoint**: Foundation ready - implementação de user stories pode começar
@@ -141,11 +141,11 @@
 
 ### Application - Auth
 
-- [ ] T074 [US8] Create SetupPasswordCommand in backend/src/AAI.Application/Auth/Commands/SetupPassword/
+- [x] T074 [US8] Create SetupPasswordCommand in backend/src/AAI.Application/Auth/Commands/SetupPassword/
 - [x] T075 [US8] Create LoginCommand in backend/src/AAI.Application/Auth/Commands/Login/
-- [ ] T076 [US8] Create RefreshTokenCommand in backend/src/AAI.Application/Auth/Commands/RefreshToken/
-- [ ] T077 [US8] Create ChangePasswordCommand in backend/src/AAI.Application/Auth/Commands/ChangePassword/
-- [ ] T078 [P] [US8] Create AuthDTOs in backend/src/AAI.Application/Auth/DTOs/
+- [x] T076 [US8] Create RefreshTokenCommand in backend/src/AAI.Application/Auth/Commands/RefreshToken/
+- [x] T077 [US8] Create ChangePasswordCommand in backend/src/AAI.Application/Auth/Commands/ChangePassword/
+- [x] T078 [P] [US8] Create AuthDTOs in backend/src/AAI.Application/Auth/DTOs/
 
 ### Infrastructure - Security
 
@@ -172,10 +172,10 @@
 - [x] T087 [US8] Create AuthProvider context in frontend/src/app/providers/AuthProvider.tsx
 - [x] T088 [US8] Create useAuth hook in frontend/src/features/auth/hooks/useAuth.ts
 - [x] T089 [US8] Create authApi service in frontend/src/features/auth/api/authApi.ts
-- [ ] T090 [US8] Create LoginForm component in frontend/src/features/auth/components/LoginForm.tsx
-- [ ] T091 [US8] Create PinSetup component in frontend/src/features/auth/components/PinSetup.tsx
-- [ ] T092 [US8] Create encryption utility for local storage in frontend/src/shared/utils/encryption.ts
-- [ ] T093 [US8] Create localStorageService with encryption in frontend/src/services/storage/localStorageService.ts
+- [x] T090 [US8] Create LoginForm component in frontend/src/features/auth/components/LoginForm.tsx
+- [x] T091 [US8] Create PinSetup component in frontend/src/features/auth/components/PinSetup.tsx
+- [x] T092 [US8] Create encryption utility for local storage in frontend/src/shared/utils/encryption.ts
+- [x] T093 [US8] Create localStorageService with encryption in frontend/src/services/storage/localStorageService.ts
 
 **Checkpoint**: User Story 8 completa - autenticação e segurança de dados funcionais
 
@@ -203,9 +203,9 @@
 - [x] T099 [US2] Create profile types in frontend/src/features/profile/types/profile.ts
 - [x] T100 [US2] Create profileApi service in frontend/src/features/profile/api/profileApi.ts
 - [x] T101 [US2] Create useProfile hook in frontend/src/features/profile/hooks/useProfile.ts
-- [ ] T102 [US2] Create ProfileSettings component in frontend/src/features/profile/components/ProfileSettings.tsx
-- [ ] T103 [P] [US2] Create RiskProfileSelector component in frontend/src/features/profile/components/RiskProfileSelector.tsx
-- [ ] T104 [P] [US2] Create ThresholdConfig component in frontend/src/features/profile/components/ThresholdConfig.tsx
+- [x] T102 [US2] Create ProfileSettings component in frontend/src/features/profile/components/ProfileSettings.tsx
+- [x] T103 [P] [US2] Create RiskProfileSelector component in frontend/src/features/profile/components/RiskProfileSelector.tsx
+- [x] T104 [P] [US2] Create ThresholdConfig component in frontend/src/features/profile/components/ThresholdConfig.tsx
 
 **Checkpoint**: User Story 2 completa - configuração de perfil funcional
 
@@ -228,7 +228,7 @@
 - [x] T111 [P] [US1] Create PriceHistory entity in backend/src/AAI.Domain/Entities/PriceHistory.cs
 - [x] T112 [P] [US1] Create IPortfolioRepository interface in backend/src/AAI.Domain/Interfaces/IPortfolioRepository.cs
 - [x] T113 [P] [US1] Create IAssetRepository interface in backend/src/AAI.Domain/Interfaces/IAssetRepository.cs
-- [ ] T114 [P] [US1] Create IPositionRepository interface in backend/src/AAI.Domain/Interfaces/IPositionRepository.cs
+- [x] T114 [P] [US1] Create IPositionRepository interface in backend/src/AAI.Domain/Interfaces/IPositionRepository.cs
 
 ### Infrastructure - Persistence
 
@@ -240,7 +240,7 @@
 - [x] T120 [P] [US1] Create PriceHistoryConfiguration in backend/src/AAI.Infrastructure/Persistence/Configurations/PriceHistoryConfiguration.cs
 - [x] T121 [US1] Create PortfolioRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PortfolioRepository.cs
 - [x] T122 [P] [US1] Create AssetRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/AssetRepository.cs
-- [ ] T123 [P] [US1] Create PositionRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PositionRepository.cs
+- [x] T123 [P] [US1] Create PositionRepository in backend/src/AAI.Infrastructure/Persistence/Repositories/PositionRepository.cs
 - [x] T124 [US1] Add Portfolio migration in backend/src/AAI.Infrastructure/Persistence/Migrations/
 
 ### Application - Portfolio Queries
@@ -276,14 +276,14 @@
 - [x] T141 [US1] Create portfolio types in frontend/src/features/portfolio/types/portfolio.ts
 - [x] T142 [US1] Create portfolioApi service in frontend/src/features/portfolio/api/portfolioApi.ts
 - [x] T143 [US1] Create usePortfolio hook in frontend/src/features/portfolio/hooks/usePortfolio.ts
-- [ ] T144 [US1] Create usePositions hook in frontend/src/features/portfolio/hooks/usePositions.ts
-- [ ] T145 [US1] Create PortfolioDashboard component in frontend/src/features/portfolio/components/PortfolioDashboard.tsx
-- [ ] T146 [P] [US1] Create AllocationChart component with Recharts in frontend/src/features/portfolio/components/AllocationChart.tsx
-- [ ] T147 [P] [US1] Create PositionCard component in frontend/src/features/portfolio/components/PositionCard.tsx
-- [ ] T148 [P] [US1] Create PositionList component in frontend/src/features/portfolio/components/PositionList.tsx
-- [ ] T149 [P] [US1] Create PieChart wrapper component in frontend/src/shared/components/charts/PieChart.tsx
-- [ ] T150 [P] [US1] Create LineChart wrapper component in frontend/src/shared/components/charts/LineChart.tsx
-- [ ] T151 [P] [US1] Create BarChart wrapper component in frontend/src/shared/components/charts/BarChart.tsx
+- [x] T144 [US1] Create usePositions hook in frontend/src/features/portfolio/hooks/usePositions.ts
+- [x] T145 [US1] Create PortfolioDashboard component in frontend/src/features/portfolio/components/PortfolioDashboard.tsx
+- [x] T146 [P] [US1] Create AllocationChart component with Recharts in frontend/src/features/portfolio/components/AllocationChart.tsx
+- [x] T147 [P] [US1] Create PositionCard component in frontend/src/features/portfolio/components/PositionCard.tsx
+- [x] T148 [P] [US1] Create PositionList component in frontend/src/features/portfolio/components/PositionList.tsx
+- [x] T149 [P] [US1] Create PieChart wrapper component in frontend/src/shared/components/charts/PieChart.tsx
+- [x] T150 [P] [US1] Create LineChart wrapper component in frontend/src/shared/components/charts/LineChart.tsx
+- [x] T151 [P] [US1] Create BarChart wrapper component in frontend/src/shared/components/charts/BarChart.tsx
 
 **Checkpoint**: User Story 1 completa - dashboard de portfólio funcional com alocação e performance
 
